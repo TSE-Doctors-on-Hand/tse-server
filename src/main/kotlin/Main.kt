@@ -1,7 +1,14 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.gotrue.Auth
+import io.github.jan.supabase.postgrest.Postgrest
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+
+fun main() {
+    var supaBase = createSupabaseClient(
+        supabaseUrl = "",
+        supabaseKey = ""
+    ) {
+        install(Postgrest)
+        install(Auth)
+    }
 }
