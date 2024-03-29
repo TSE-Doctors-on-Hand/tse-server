@@ -67,8 +67,6 @@ data class Appointment(
 
     /**
      * Accessibility feature: Allow for home visits just like the NHS
-     *
-     * @author Ben Soones
      */
     val homeVisits: Boolean,
 
