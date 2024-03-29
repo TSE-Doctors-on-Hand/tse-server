@@ -1,0 +1,39 @@
+version: '2'
+services:
+
+  # Databases
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - '5432'
+    networks:
+      - tse-backend-network
+  rabbitmq:
+    image: 'rabbitmq:latest'
+    environment:
+      - 'RABBITMQ_DEFAULT_PASS=secret'
+      - 'RABBITMQ_DEFAULT_USER=myuser'
+    ports:
+      - '5672'
+    networks:
+      - tse-backend-network
+
+    # TSE Spring Applications
+  tse-server:
+    container_name: tse-server
+    build:
+      dockerfile: Dockerfile
+    image: tse-server:latest
+    ports:
+      - 8080:8080
+    networks:
+      - tse-backend-network
+
+
+networks:
+  tse-backend-network:
+    driver: bridge
