@@ -38,13 +38,9 @@ data class User(
 
     /**
      * A user's biological sex
-     *
-     *  - `true`: Biological sex is female
-     *  - `false`: Biological sex is male
-     *
      * This is their sex at birth, which is relevant for medical questions
      */
-    val sex: Boolean, // True for male, false for female
+    val sex: UserSex,
 
     /**
      * A list of pronouns for effective communication between
