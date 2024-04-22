@@ -31,7 +31,8 @@ data class Practice(
      * A Latitude and Longitude pair showing the GPS co-ordinates of the practice
      * This can be used with a maps API to get the location
      */
-    val location: Pair<Double, Double>,
+    val locationLat: Double,
+    val locationLong: Double
 ) {
-    constructor() : this(0, "", Pair(0.00, 0.00))
+    constructor() : this(0, "", 0.00, 0.00)
 }
