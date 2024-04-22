@@ -75,5 +75,5 @@ data class User(
     val homeLocation: Pair<Double, Double>, // Lat long coords
     val nextOfKin: String
 ) {
-    constructor() : this(0,"","",Date(0),true, mutableListOf(),"","",Pair(0.00,0.00),"")
+    constructor() : this(0,"","",Date(0),UserSex.MALE, mutableListOf(),"","",Pair(0.00,0.00),"")
 }
