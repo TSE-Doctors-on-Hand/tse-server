@@ -76,8 +76,10 @@ data class User(
      * This will be the postal address for any physical forms of
      * communication
      */
-    val homeLocation: Pair<Double, Double>, // Lat long coords
+    val homeLocationLat: Double,
+    val homeLocationLong: Double,
+
     val nextOfKin: String
 ) {
-    constructor() : this(0,"","",Date(0),true, mutableListOf(),"","",Pair(0.00,0.00),"")
+    constructor() : this(0,"","",Date(0),UserSex.MALE, mutableListOf(),"","",Pair(0.00,0.00),"")
 }
