@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 @RestController
 @RequestMapping("/api/appointment")
@@ -71,7 +69,7 @@ class AppointmentController(
         @PathVariable
         id: Long,
         @RequestBody
-        suggestedDateTime: LocalDateTime
+        suggestedDateTime: Long
     ): ResponseEntity<Appointment> {
         val appointment = appointmentService.getAppointment(id)
         appointment.date = suggestedDateTime
@@ -96,7 +94,7 @@ class AppointmentController(
         @PathVariable
         id: Long,
         @RequestBody
-        newDateTimes: MutableSet<LocalDateTime>
+        newDateTimes: MutableSet<Long>
     ): ResponseEntity<Appointment> {
         val appointment = appointmentService.getAppointment(id)
         appointment.status = AppointmentStatus.REVIEWED.index
