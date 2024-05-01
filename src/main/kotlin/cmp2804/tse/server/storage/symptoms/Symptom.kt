@@ -26,6 +26,7 @@ data class Symptom(
      *
      * E.g "Headache"
      */
+    @Column(unique = true)
     val name: String,
 ) {
     constructor() : this(0, "")
