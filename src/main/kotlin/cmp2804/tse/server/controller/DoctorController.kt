@@ -38,7 +38,7 @@ class DoctorController(private val doctorService: DoctorService) {
     fun getDoctorById(
         @PathVariable(value = "id")
         doctorId: Long
-    ): ResponseEntity<Doctor> {
-        return ResponseUtils.getEntryResponseById(doctorsRepository, doctorId)
+    ) {
+//        return ResponseUtils.getEntryResponseById(doctorsRepository, doctorId)
     }
 }
