@@ -28,10 +28,8 @@ class DoctorController(private val doctorService: DoctorService) {
         range: Double,
     ): ResponseEntity<List<Doctor>> {
         val currentPos = LatLong(lat, long)
-
         val doctorsInRange = doctorService.getDoctorsInRange(currentPos, range)
         return ResponseEntity.ok(doctorsInRange)
-
     }
 
     // Get doctor by ID

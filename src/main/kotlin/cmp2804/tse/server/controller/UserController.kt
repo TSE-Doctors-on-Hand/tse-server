@@ -32,5 +32,4 @@ class UserController(private val usersRepository: UsersRepository) {
     ) {
         throw NotImplementedError()
     }
-
 }
