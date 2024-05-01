@@ -104,10 +104,10 @@ data class Appointment(
     val date: Date?,
 
     /**
-     * Status enum showing the progress of the application
+     * Status enum value showing the progress of the application
      *
      * @see AppointmentStatus
      */
-    val status: AppointmentStatus,
+    var status: Int,
 
     )
