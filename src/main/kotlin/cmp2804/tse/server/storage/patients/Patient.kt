@@ -45,6 +45,4 @@ data class Patient(
     @OneToMany(mappedBy = USER_TABLE_NAME, cascade = [CascadeType.ALL])
     val carers: MutableList<User>,
 
-    ) {
-    constructor() : this(0, User(), mutableListOf())
-}
+    )
