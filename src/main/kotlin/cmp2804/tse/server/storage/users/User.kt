@@ -19,6 +19,15 @@ data class User(
     @GeneratedValue
     val id: Long,
 
+    @Column(unique = true)
+    val username: String,
+
+    /**
+     * A hashed and salted password
+     */
+    val password: String,
+
+
     /**
      * A user's first name
      */
