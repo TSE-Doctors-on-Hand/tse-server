@@ -1,6 +1,7 @@
 package cmp2804.tse.server.storage.users
 
 import java.sql.Date
+import java.util.UUID
 import javax.persistence.*
 
 const val USER_TABLE_NAME = "users"
@@ -15,9 +16,10 @@ const val USER_TABLE_NAME = "users"
 @Entity
 @Table(name = USER_TABLE_NAME)
 data class User(
+
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
 
     @Column(unique = true)
     val username: String,
