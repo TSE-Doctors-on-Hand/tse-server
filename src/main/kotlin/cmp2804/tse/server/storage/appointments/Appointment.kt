@@ -2,9 +2,12 @@ package cmp2804.tse.server.storage.appointments
 
 import cmp2804.tse.server.storage.doctors.DOCTOR_TABLE_NAME
 import cmp2804.tse.server.storage.doctors.Doctor
+import cmp2804.tse.server.storage.patients.PATIENT_TABLE_NAME
+import cmp2804.tse.server.storage.patients.Patient
 import cmp2804.tse.server.storage.practices.PRACTICE_TABLE_NAME
 import cmp2804.tse.server.storage.practices.Practice
 import java.sql.Date
+import java.time.LocalDateTime
 import javax.persistence.*
 
 const val APPOINTMENT_TABLE_NAME = "appointments"
@@ -20,8 +23,19 @@ const val APPOINTMENT_TABLE_NAME = "appointments"
 @Table(name = APPOINTMENT_TABLE_NAME)
 data class Appointment(
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    /**
+     * Appointment patient:
+     *
+     * The patient connected to an appointment
+     *
+     * @see Patient
+     */
+    @JoinColumn(name = "${PATIENT_TABLE_NAME}_id")
+    @OneToOne(mappedBy = PATIENT_TABLE_NAME, cascade = [CascadeType.ALL])
+    val patient: Patient,
 
     /**
      * Appointment doctor:
@@ -38,7 +52,7 @@ data class Appointment(
      * Patient chosen list of available dates
      */
     @ElementCollection
-    val availableDates: MutableSet<Date>,
+    var availableDates: MutableSet<LocalDateTime>,
 
     /**
      * * A Latitude and Longitude pair showing the GPS co-ordinates of the practice
@@ -88,29 +102,15 @@ data class Appointment(
     val considerations: String,
 
     /**
-     * Chosen appointment date agreed upon between the doctor and patient
+     * Chosen appointment date upon between the doctor and patient
      */
-    val date: Date?,
+    var date: LocalDateTime?,
 
     /**
-     * Status enum showing the progress of the application
+     * Status enum value showing the progress of the application
      *
      * @see AppointmentStatus
      */
-    val status: AppointmentStatus,
+    var status: Int,
 
-    ) {
-    // Base constructor
-    constructor() : this(
-        0,
-        Doctor(),
-        mutableSetOf(),
-        Pair(0.00, 0.00),
-        0.00,
-        false,
-        Practice(),
-        "",
-        null,
-        AppointmentStatus.SENT
     )
-}

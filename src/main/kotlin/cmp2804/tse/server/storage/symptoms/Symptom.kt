@@ -1,9 +1,6 @@
 package cmp2804.tse.server.storage.symptoms
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 const val SYMPTOM_TABLE_NAME = "symptoms"
 
@@ -18,15 +15,14 @@ const val SYMPTOM_TABLE_NAME = "symptoms"
 @Table(name = SYMPTOM_TABLE_NAME)
 data class Symptom(
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
 
     /**
      * Name of the symptom
      *
      * E.g "Headache"
      */
+    @Column(unique = true)
     val name: String,
-) {
-    constructor() : this(0, "")
-}
+)
