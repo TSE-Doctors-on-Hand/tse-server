@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/doctor")
 @Validated
-class DoctorController(private val doctorsRepository: DoctorsRepository) {
+class DoctorController(private val doctorService: DoctorService) {
 
     // Gets all doctors within km range
     @GetMapping("/range/{lat}/{long}/{range}")
