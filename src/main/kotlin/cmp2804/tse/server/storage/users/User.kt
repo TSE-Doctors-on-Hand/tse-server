@@ -1,6 +1,7 @@
 package cmp2804.tse.server.storage.users
 
 import java.sql.Date
+import java.util.UUID
 import javax.persistence.*
 
 const val USER_TABLE_NAME = "users"
@@ -15,9 +16,19 @@ const val USER_TABLE_NAME = "users"
 @Entity
 @Table(name = USER_TABLE_NAME)
 data class User(
+
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    @Column(unique = true)
+    val username: String,
+
+    /**
+     * A hashed and salted password
+     */
+    val password: String,
+
 
     /**
      * A user's first name
@@ -40,7 +51,7 @@ data class User(
      * A user's biological sex
      * This is their sex at birth, which is relevant for medical questions
      */
-    val sex: UserSex,
+    val sex: SexEnum,
 
     /**
      * A list of pronouns for effective communication between
@@ -76,6 +87,4 @@ data class User(
     val homeLocationLong: Double,
 
     val nextOfKin: String
-) {
-    constructor() : this(0,"","",Date(0),UserSex.MALE, mutableListOf(),"","",Pair(0.00,0.00),"")
-}
+)

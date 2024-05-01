@@ -15,8 +15,8 @@ const val PRACTICE_TABLE_NAME = "practices"
 @Table(name = PRACTICE_TABLE_NAME)
 data class Practice(
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
 
     /**
      * Practice name
@@ -32,7 +32,12 @@ data class Practice(
      * This can be used with a maps API to get the location
      */
     val locationLat: Double,
-    val locationLong: Double
-) {
-    constructor() : this(0, "", 0.00, 0.00)
-}
+    val locationLong: Double,
+
+    /**
+     * Practice address
+     *
+     * A text address, showing postcodes, street names, etc. for a user to view
+     */
+    val address: String
+)

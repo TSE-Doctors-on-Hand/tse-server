@@ -24,8 +24,8 @@ const val DOCTOR_TABLE_NAME = "doctors"
 @Table(name = DOCTOR_TABLE_NAME)
 data class Doctor(
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
 
     /**
      * The doctor's speciality
@@ -78,6 +78,4 @@ data class Doctor(
     val symptoms: MutableSet<Symptom>
 
 
-) {
-    constructor() : this(0, "", "", User(), mutableSetOf(), mutableSetOf())
-}
+)
