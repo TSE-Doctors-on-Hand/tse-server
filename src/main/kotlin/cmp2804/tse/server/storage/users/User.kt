@@ -49,7 +49,7 @@ data class User(
      * A user's biological sex
      * This is their sex at birth, which is relevant for medical questions
      */
-    val sex: UserSex,
+    val sex: SexEnum,
 
     /**
      * A list of pronouns for effective communication between
