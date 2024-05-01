@@ -20,8 +20,19 @@ const val APPOINTMENT_TABLE_NAME = "appointments"
 @Table(name = APPOINTMENT_TABLE_NAME)
 data class Appointment(
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    /**
+     * Appointment patient:
+     *
+     * The patient connected to an appointment
+     *
+     * @see Patient
+     */
+    @JoinColumn(name = "${PATIENT_TABLE_NAME}_id")
+    @OneToOne(mappedBy = PATIENT_TABLE_NAME, cascade = [CascadeType.ALL])
+    val patient: Patient,
 
     /**
      * Appointment doctor:
