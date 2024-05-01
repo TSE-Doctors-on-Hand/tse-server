@@ -2,9 +2,12 @@ package cmp2804.tse.server.storage.appointments
 
 import cmp2804.tse.server.storage.doctors.DOCTOR_TABLE_NAME
 import cmp2804.tse.server.storage.doctors.Doctor
+import cmp2804.tse.server.storage.patients.PATIENT_TABLE_NAME
+import cmp2804.tse.server.storage.patients.Patient
 import cmp2804.tse.server.storage.practices.PRACTICE_TABLE_NAME
 import cmp2804.tse.server.storage.practices.Practice
 import java.sql.Date
+import java.time.LocalDateTime
 import javax.persistence.*
 
 const val APPOINTMENT_TABLE_NAME = "appointments"
@@ -49,7 +52,7 @@ data class Appointment(
      * Patient chosen list of available dates
      */
     @ElementCollection
-    val availableDates: MutableSet<Date>,
+    var availableDates: MutableSet<LocalDateTime>,
 
     /**
      * * A Latitude and Longitude pair showing the GPS co-ordinates of the practice
@@ -99,9 +102,9 @@ data class Appointment(
     val considerations: String,
 
     /**
-     * Chosen appointment date agreed upon between the doctor and patient
+     * Chosen appointment date upon between the doctor and patient
      */
-    val date: Date?,
+    var date: LocalDateTime?,
 
     /**
      * Status enum value showing the progress of the application
