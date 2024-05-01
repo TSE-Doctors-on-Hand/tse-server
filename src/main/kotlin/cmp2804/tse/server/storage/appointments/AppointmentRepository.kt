@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository
  * @param [Long] ID type
  * @author Ben Soones
  */
-interface AppointmentRepository : JpaRepository<Appointment, Long> {}
+interface AppointmentRepository : JpaRepository<Appointment, Long> {}interface AppointmentRepository : JpaRepository<Appointment, Long> {
+    fun findByPatient(patient: Patient): List<Appointment>
