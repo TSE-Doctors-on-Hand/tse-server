@@ -110,18 +110,4 @@ data class Appointment(
      */
     val status: AppointmentStatus,
 
-    ) {
-    // Base constructor
-    constructor() : this(
-        0,
-        Doctor(),
-        mutableSetOf(),
-        Pair(0.00, 0.00),
-        0.00,
-        false,
-        Practice(),
-        "",
-        null,
-        AppointmentStatus.SENT
     )
-}
