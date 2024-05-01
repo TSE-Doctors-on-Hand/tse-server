@@ -1,5 +1,6 @@
 package cmp2804.tse.server.controller
 
+import cmp2804.tse.server.service.DoctorService
 import cmp2804.tse.server.storage.doctors.Doctor
 import cmp2804.tse.server.storage.doctors.DoctorsRepository
 import cmp2804.tse.server.util.ResponseUtils
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/doctor")
 @Validated
-class DoctorController(private val doctorsRepository: DoctorsRepository) {
+class DoctorController(private val doctorService: DoctorService) {
 
     // Gets all doctors within km range
     @GetMapping("/range/{lat}/{long}/{range}")
@@ -28,16 +29,9 @@ class DoctorController(private val doctorsRepository: DoctorsRepository) {
     ): ResponseEntity<List<Doctor>> {
         val currentPos = LatLong(lat, long)
 
-        val doctors = doctorsRepository.findAll().filter { doctor ->
-            doctor.practices.any { practice ->
-                currentPos.isInRange(practice.location, range)
-            }
-        }
-        return if (doctors.isEmpty()) {
-            ResponseEntity.notFound().build()
-        } else {
-            ResponseEntity.ok(doctors)
-        }
+        val doctorsInRange = doctorService.getDoctorsInRange(currentPos, range)
+        return ResponseEntity.ok(doctorsInRange)
+
     }
 
     // Get doctor by ID
@@ -45,7 +39,7 @@ class DoctorController(private val doctorsRepository: DoctorsRepository) {
     fun getDoctorById(
         @PathVariable(value = "id")
         doctorId: Long
-    ): ResponseEntity<Doctor> {
-        return ResponseUtils.getEntryResponseById(doctorsRepository, doctorId)
+    ) {
+//        return ResponseUtils.getEntryResponseById(doctorsRepository, doctorId)
     }
 }
