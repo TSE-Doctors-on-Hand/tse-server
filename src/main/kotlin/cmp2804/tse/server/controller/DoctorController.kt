@@ -1,5 +1,6 @@
 package cmp2804.tse.server.controller
 
+import cmp2804.tse.server.service.DoctorService
 import cmp2804.tse.server.storage.doctors.Doctor
 import cmp2804.tse.server.storage.doctors.DoctorsRepository
 import cmp2804.tse.server.util.ResponseUtils
