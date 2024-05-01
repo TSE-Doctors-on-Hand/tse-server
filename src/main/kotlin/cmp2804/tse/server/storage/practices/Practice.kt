@@ -15,8 +15,8 @@ const val PRACTICE_TABLE_NAME = "practices"
 @Table(name = PRACTICE_TABLE_NAME)
 data class Practice(
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
 
     /**
      * Practice name
