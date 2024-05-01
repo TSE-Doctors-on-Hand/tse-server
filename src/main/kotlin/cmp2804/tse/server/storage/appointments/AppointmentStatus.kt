@@ -8,26 +8,36 @@ package cmp2804.tse.server.storage.appointments
  * @see [Appointment]
  * @author Ben Soones
  */
-enum class AppointmentStatus {
+enum class AppointmentStatus(val index: Int) {
+    /**
+     * The appointment has been canceled, no further actions should be taken.
+     *
+     * This appointment can be canceled at any time, by either the doctor or the patient
+     *
+     * **NOTE: If the doctor cancels the appointment, a reason must be given**
+     */
+    CANCELLED(0),
+
+
     /**
      * Appointment request has been completed by a patient
      * and is in the corresponding doctor's inbox
      *
      * @see cmp2804.tse.server.storage.doctors.Doctor
      */
-    SENT,
+    SENT(1),
 
     /**
      * The request has been opened by the doctor
      */
-    SEEN,
+    SEEN(2),
 
     /**
      * The request has been reviewed by the doctor,
      * and the doctor is now working on an appointment
      * date and practice
      */
-    REVIEWED,
+    REVIEWED(3),
 
     /**
      * A suggested date and practice has been offered
@@ -36,26 +46,22 @@ enum class AppointmentStatus {
      * **NOTE: If a patient denies this stage, the status will
      * return to [REVIEWED]**
      */
-    AWAITING_CONFIRMATION,
+    AWAITING_CONFIRMATION(4),
 
     /**
      * The appointment has been confirmed by both the doctor and the patient
      */
-    CONFIRMED,
+    CONFIRMED(5),
 
     /**
      * The patient has attended the appointment, marking this appointment as complete
      *
      * **NOTE: If a patient misses their appointment, the status will return to [REVIEWED]**
      */
-    COMPLETE,
+    COMPLETE(6);
 
-    /**
-     * The appointment has been cancelled, no further actions should be taken.
-     *
-     * This appointment can be cancelled at any time, by either the doctor or the patient
-     *
-     * **NOTE: If the appointment is cancelled by the doctor, a reason must be given**
-     */
-    CANCELLED
+    fun getByIndex(index: Int): AppointmentStatus? {
+        return values().getOrNull(index)
+    }
+
 }
