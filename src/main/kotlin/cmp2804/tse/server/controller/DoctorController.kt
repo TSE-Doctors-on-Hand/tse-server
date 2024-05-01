@@ -28,16 +28,9 @@ class DoctorController(private val doctorsRepository: DoctorsRepository) {
     ): ResponseEntity<List<Doctor>> {
         val currentPos = LatLong(lat, long)
 
-        val doctors = doctorsRepository.findAll().filter { doctor ->
-            doctor.practices.any { practice ->
-                currentPos.isInRange(practice.location, range)
-            }
-        }
-        return if (doctors.isEmpty()) {
-            ResponseEntity.notFound().build()
-        } else {
-            ResponseEntity.ok(doctors)
-        }
+        val doctorsInRange = doctorService.getDoctorsInRange(currentPos, range)
+        return ResponseEntity.ok(doctorsInRange)
+
     }
 
     // Get doctor by ID
