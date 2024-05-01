@@ -9,5 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository
  * @param [Long] ID type
  * @author Ben Soones
  */
-interface UsersRepository : JpaRepository<User, Long> {}interface UsersRepository : JpaRepository<User, Long> {
+interface UsersRepository : JpaRepository<User, Long> {
     fun findByUsername(username: String): User?
+    fun findByid(id: Long): User?
+}
