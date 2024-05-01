@@ -20,8 +20,8 @@ const val PATIENT_TABLE_NAME = "patients"
 @Table(name = PATIENT_TABLE_NAME)
 data class Patient(
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
 
     /**
      * Corresponding user
