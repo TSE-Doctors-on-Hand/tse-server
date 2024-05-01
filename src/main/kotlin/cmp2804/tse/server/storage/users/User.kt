@@ -1,7 +1,5 @@
 package cmp2804.tse.server.storage.users
 
-import java.sql.Date
-import java.util.UUID
 import javax.persistence.*
 
 const val USER_TABLE_NAME = "users"
@@ -42,10 +40,8 @@ data class User(
 
     /**
      * A user's date of both
-     *
-     * @see [Date]
      */
-    val dateOfBirth: Date,
+    val dateOfBirth: Long,
 
     /**
      * A user's biological sex
