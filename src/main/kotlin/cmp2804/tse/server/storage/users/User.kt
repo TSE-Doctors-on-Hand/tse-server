@@ -85,6 +85,4 @@ data class User(
     val homeLocationLong: Double,
 
     val nextOfKin: String
-) {
-    constructor() : this(0,"","",Date(0),UserSex.MALE, mutableListOf(),"","",Pair(0.00,0.00),"")
-}
+)
