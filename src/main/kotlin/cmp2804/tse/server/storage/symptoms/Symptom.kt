@@ -18,8 +18,8 @@ const val SYMPTOM_TABLE_NAME = "symptoms"
 @Table(name = SYMPTOM_TABLE_NAME)
 data class Symptom(
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
 
     /**
      * Name of the symptom
