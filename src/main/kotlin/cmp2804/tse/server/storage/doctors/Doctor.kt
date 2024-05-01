@@ -78,6 +78,4 @@ data class Doctor(
     val symptoms: MutableSet<Symptom>
 
 
-) {
-    constructor() : this(0, "", "", User(), mutableSetOf(), mutableSetOf())
-}
+)
