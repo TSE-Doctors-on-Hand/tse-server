@@ -24,7 +24,7 @@ object SymptomMatcher {
     fun matchDoctor(
         doctor: Doctor,
         symptoms: Set<Symptom>
-    ): MatchedDoctor {
+    ){ // : MatchedDoctor {
         val similarity: Double
 
         val doctorSymptoms = doctor.symptoms

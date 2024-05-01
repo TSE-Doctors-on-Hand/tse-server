@@ -52,7 +52,7 @@ class SecurityConfig(
     }
 
     @Bean
-    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+    fun filterChain(http: HttpSecurity) { // : SecurityFilterChain {
 //        // Define public and private routes
 //        http.authorizeHttpRequests()
 //            .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
