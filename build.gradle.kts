@@ -32,6 +32,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
 	implementation("javax.persistence:javax.persistence-api:2.2")
+	implementation("org.springframework.security:spring-security-oauth2-jose")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
