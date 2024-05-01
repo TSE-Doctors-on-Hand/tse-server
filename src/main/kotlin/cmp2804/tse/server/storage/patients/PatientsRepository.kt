@@ -1,5 +1,6 @@
 package cmp2804.tse.server.storage.patients
 
+import cmp2804.tse.server.storage.users.User
 import org.springframework.data.jpa.repository.JpaRepository
 
 /**
@@ -9,4 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository
  * @param [Long] ID type
  * @author Ben Soones
  */
-interface PatientsRepository : JpaRepository<Patient, Long> {}
+interface PatientsRepository : JpaRepository<Patient, Long> {
+    fun findByUser(user: User): Patient?
+}
