@@ -7,15 +7,15 @@ import org.springframework.context.annotation.Configuration
 
 // TODO -> Better name needed
 
-@Configuration
-class Config {
-
-    /**
-     * Registration for global exception handler advice
-     *
-     * @see [GlobalExceptionHandler]
-     * @author Ben Soones
-     */
-    @Bean
-    fun globalExceptionHandler() = GlobalExceptionHandler
-}
+//@Configuration
+//class Config {
+//
+//    /**
+//     * Registration for global exception handler advice
+//     *
+//     * @see [GlobalExceptionHandler]
+//     * @author Ben Soones
+//     */
+//    @Bean
+//    fun globalExceptionHandler() = GlobalExceptionHandler
+//}
