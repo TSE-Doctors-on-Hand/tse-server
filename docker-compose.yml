@@ -9,7 +9,7 @@ services:
       - 'POSTGRES_PASSWORD=secret'
       - 'POSTGRES_USER=myuser'
     ports:
-      - '5432'
+      - '5432:5432'
     networks:
       - tse-backend-network
   rabbitmq:
@@ -27,6 +27,8 @@ services:
     container_name: tse-server
     build:
       dockerfile: Dockerfile
+    env_file:
+      - .env
     image: tse-server:latest
     ports:
       - 8080:8080
