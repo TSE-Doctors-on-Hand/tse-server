@@ -47,6 +47,7 @@ class UserService(
             homeLocationLat = signUpRequest.homeLocationLat,
             homeLocationLong = signUpRequest.homeLocationLong,
             nextOfKin = signUpRequest.nextOfKin,
+            roles = setOf()
         )
         user.let { usersRepository.save(it) }
 

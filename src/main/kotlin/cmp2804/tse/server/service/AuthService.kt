@@ -12,6 +12,7 @@ import io.jsonwebtoken.SignatureAlgorithm
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -22,11 +23,10 @@ const val TOKEN_COOKIE_NAME = "token"
 @Service
 class AuthService(
     private val userService: UserService,
-    private val passwordEncoder: PasswordEncoder
-) {
+    ) {
     @Transactional
     fun signUp(signUpRequest: SignUpRequest): ResponseEntity<User> {
-        val hashedPassword = passwordEncoder.encode(signUpRequest.password)
+        val hashedPassword = BCryptPasswordEncoder().encode(signUpRequest.password)
 
         val user = userService.createUser(signUpRequest, hashedPassword)
         return ResponseEntity.ok(user)
@@ -52,6 +52,11 @@ class AuthService(
 
         return ResponseEntity.ok(SUCCESS_MESSAGE)
     }
+
+    fun signOut() {
+
+    }
+
 
     fun getUser(token: String?): User? {
         try {

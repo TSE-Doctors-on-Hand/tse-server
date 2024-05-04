@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/appointment")
 @Validated
 class AppointmentController(
-    private val appointmentService: AppointmentService
+    private val appointmentService: AppointmentService,
     private val authService: AuthService
 ) {
     @GetMapping("/all/")
@@ -59,9 +59,10 @@ class AppointmentController(
         @PathVariable("id")
         id: Long,
         @RequestBody
-        newStatus: Int
+        newStatus: Int,
+        user: User
     ): ResponseEntity<Appointment> {
-        val appointment = appointmentService.getAppointment(id)
+        val appointment = appointmentService.getAppointment(user, id)
         appointment.status = newStatus
 
         val newAppointment = appointmentService.updateAppointment(appointment)
@@ -74,9 +75,10 @@ class AppointmentController(
         @PathVariable
         id: Long,
         @RequestBody
-        suggestedDateTime: Long
+        suggestedDateTime: Long,
+        user: User
     ): ResponseEntity<Appointment> {
-        val appointment = appointmentService.getAppointment(id)
+        val appointment = appointmentService.getAppointment(user, id)
         appointment.date = suggestedDateTime
         appointment.status = AppointmentStatus.AWAITING_CONFIRMATION.index
         val newAppointment = appointmentService.updateAppointment(appointment)
@@ -87,8 +89,9 @@ class AppointmentController(
     fun approveDate(
         @PathVariable
         id: Long,
+        user: User
     ): ResponseEntity<Appointment> {
-        val appointment = appointmentService.getAppointment(id)
+        val appointment = appointmentService.getAppointment(user, id)
         appointment.status = AppointmentStatus.CONFIRMED.index
         val newAppointment = appointmentService.updateAppointment(appointment)
         return ResponseEntity.ok(newAppointment)
@@ -99,9 +102,10 @@ class AppointmentController(
         @PathVariable
         id: Long,
         @RequestBody
-        newDateTimes: MutableSet<Long>
+        newDateTimes: MutableSet<Long>,
+        user: User
     ): ResponseEntity<Appointment> {
-        val appointment = appointmentService.getAppointment(id)
+        val appointment = appointmentService.getAppointment(user, id)
         appointment.status = AppointmentStatus.REVIEWED.index
         appointment.availableDates = newDateTimes
         val newAppointment = appointmentService.updateAppointment(appointment)
@@ -111,7 +115,8 @@ class AppointmentController(
     @PostMapping("/")
     fun postAppointment(
         @RequestBody
-        appointment: Appointment
+        appointment: Appointment,
+        user: User
     ): ResponseEntity<Appointment> {
         val savedAppointment = appointmentService.addAppointment(appointment)
         return ResponseEntity.ok(savedAppointment) // TODO: Error handling
