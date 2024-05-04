@@ -1,5 +1,6 @@
 package cmp2804.tse.server.storage.practices
 
+import cmp2804.tse.server.util.LatLong
 import javax.persistence.*
 
 const val PRACTICE_TABLE_NAME = "practices"
@@ -40,4 +41,6 @@ data class Practice(
      * A text address, showing postcodes, street names, etc. for a user to view
      */
     val address: String
-)
+) {
+    fun latLong(): LatLong = LatLong(locationLat, locationLong)
+}
