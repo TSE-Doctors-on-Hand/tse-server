@@ -58,4 +58,11 @@ class UserController(
         return ResponseEntity.ok(notifications)
     }
 
+    @DeleteMapping("/")
+    fun deleteUser(
+        user: User
+    ) {
+        userService
+    }
+
 }
