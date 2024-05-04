@@ -6,6 +6,8 @@ import cmp2804.tse.server.storage.patients.PATIENT_TABLE_NAME
 import cmp2804.tse.server.storage.patients.Patient
 import cmp2804.tse.server.storage.practices.PRACTICE_TABLE_NAME
 import cmp2804.tse.server.storage.practices.Practice
+import cmp2804.tse.server.storage.roles.RolesEnum
+import cmp2804.tse.server.storage.users.User
 import jakarta.persistence.*
 
 const val APPOINTMENT_TABLE_NAME = "appointments"
@@ -126,7 +128,25 @@ data class Appointment(
         "",
         0L,
         0
-    ) {
+    )
+
+    fun hasViewPermission(user: User): Boolean {
+        return hasPatientPermission(user) || hasDoctorPermission(user)
+    }
+
+    fun hasPatientPermission(user: User): Boolean {
+        if (hasAdminPermission(user)) return true
+        return (this.patient.user.id == user.id)
 
     }
+
+    fun hasDoctorPermission(user: User): Boolean {
+        if (hasAdminPermission(user)) return true
+        return (this.doctor.user.id == user.id)
+    }
+
+    fun hasAdminPermission(user: User): Boolean {
+        return user.getHighestRole()?.name == RolesEnum.ADMIN
+    }
+
 }
