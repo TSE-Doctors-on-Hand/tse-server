@@ -32,4 +32,24 @@ class UserController(private val usersRepository: UsersRepository) {
     ) {
         throw NotImplementedError()
     }
+
+    @GetMapping("/notifications/all")
+    fun getNotifications(
+        user: User // TODO -> Get from login
+    ): ResponseEntity<List<Notification>> {
+        val notifications = notificationService.getNotifications(user)
+
+        return ResponseEntity.ok(notifications)
+    }
+
+    @GetMapping("/notifications/new")
+    fun getUnreadNotifications(
+        user: User // TODO -> Get from login
+    ): ResponseEntity<List<Notification>> {
+        val notifications = notificationService.getNotifications(user)
+            .filter { !it.seen }
+
+        return ResponseEntity.ok(notifications)
+    }
+
 }
