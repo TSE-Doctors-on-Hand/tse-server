@@ -2,15 +2,13 @@ package cmp2804.tse.server.controller
 
 import cmp2804.tse.server.service.DoctorService
 import cmp2804.tse.server.storage.doctors.Doctor
-import cmp2804.tse.server.storage.doctors.DoctorsRepository
+import cmp2804.tse.server.storage.symptoms.Symptom
 import cmp2804.tse.server.util.ResponseUtils
 import cmp2804.tse.server.util.LatLong
+import cmp2804.tse.server.util.matcher.MatchedDoctor
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/doctor")
