@@ -76,6 +76,4 @@ data class Doctor(
     @JoinColumn(name = "${SYMPTOM_TABLE_NAME}_id")
     @OneToMany(mappedBy = SYMPTOM_TABLE_NAME, cascade = [CascadeType.ALL])
     val symptoms: MutableSet<Symptom>
-
-
 )
