@@ -13,5 +13,6 @@ import org.springframework.data.jpa.repository.JpaRepository
  */
 interface AppointmentRepository : JpaRepository<Appointment, Long> {
     fun findByPatient(patient: Patient): List<Appointment>
+    fun findByDoctor(doctor: Doctor): List<Appointment>
 
 }
