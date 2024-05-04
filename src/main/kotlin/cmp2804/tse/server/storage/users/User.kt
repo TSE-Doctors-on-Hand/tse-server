@@ -82,5 +82,15 @@ data class User(
     val homeLocationLat: Double,
     val homeLocationLong: Double,
 
-    val nextOfKin: String
-)
+    val nextOfKin: String,
+
+    @JoinColumn(name = "${ROLE_TABLE_NAME}_id")
+    @OneToMany(mappedBy = ROLE_TABLE_NAME, cascade = [CascadeType.ALL])
+    val roles: Set<Role>
+
+) {
+    fun comparePassword(password: String): Boolean {
+        return BCryptPasswordEncoder().matches(password, this.password)
+
+    }
+}
