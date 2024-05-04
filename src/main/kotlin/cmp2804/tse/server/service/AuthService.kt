@@ -53,8 +53,12 @@ class AuthService(
         return ResponseEntity.ok(SUCCESS_MESSAGE)
     }
 
-    fun signOut() {
+    fun signOut(response: HttpServletResponse): ResponseEntity<Any> {
+        val cookie = Cookie(TOKEN_COOKIE_NAME, "")
+        cookie.maxAge = 0
+        response.addCookie(cookie)
 
+        return ResponseEntity.ok(SUCCESS_MESSAGE)
     }
 
 
