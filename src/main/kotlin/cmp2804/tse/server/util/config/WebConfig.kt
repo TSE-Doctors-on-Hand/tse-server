@@ -20,8 +20,11 @@ class WebConfig(
                 "http://localhost:8080",
                 "http://localhost:4200"
             )
+            .allowedMethods("GET", "POST", "PUT", "DELETE")
+            .allowedHeaders("Content-Type", "Authorization") // Allow necessary headers
             .allowCredentials(true)
     }
+
 
     override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
         resolvers.add(userArgumentResolver)
