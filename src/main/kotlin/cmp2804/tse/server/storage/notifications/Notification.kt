@@ -2,7 +2,7 @@ package cmp2804.tse.server.storage.notifications
 
 import cmp2804.tse.server.storage.users.USER_TABLE_NAME
 import cmp2804.tse.server.storage.users.User
-import javax.persistence.*
+import jakarta.persistence.*
 
 const val NOTIFICATION_TABLE_NAME = "notifications"
 
@@ -49,5 +49,13 @@ data class Notification(
     val seen: Boolean = false,
 
 
+    ) {
+    constructor() : this(
+        null,
+        User(),
+        "",
+        "",
+        false,
 
-    )
+        )
+}

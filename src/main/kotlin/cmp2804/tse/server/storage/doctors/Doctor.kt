@@ -6,7 +6,7 @@ import cmp2804.tse.server.storage.symptoms.SYMPTOM_TABLE_NAME
 import cmp2804.tse.server.storage.symptoms.Symptom
 import cmp2804.tse.server.storage.users.USER_TABLE_NAME
 import cmp2804.tse.server.storage.users.User
-import javax.persistence.*
+import jakarta.persistence.*
 
 const val DOCTOR_TABLE_NAME = "doctors"
 
@@ -76,4 +76,13 @@ data class Doctor(
     @JoinColumn(name = "${SYMPTOM_TABLE_NAME}_id")
     @OneToMany(mappedBy = SYMPTOM_TABLE_NAME, cascade = [CascadeType.ALL])
     val symptoms: MutableSet<Symptom>
-)
+) {
+    constructor() : this(
+        null,
+        "",
+        "",
+        User(),
+        mutableSetOf(),
+        mutableSetOf()
+    )
+}

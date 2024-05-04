@@ -1,6 +1,6 @@
 package cmp2804.tse.server.storage.symptoms
 
-import javax.persistence.*
+import jakarta.persistence.*
 
 const val SYMPTOM_TABLE_NAME = "symptoms"
 
@@ -25,4 +25,10 @@ data class Symptom(
      */
     @Column(unique = true)
     val name: String,
-)
+) {
+    constructor() : this(
+        null,
+        "",
+
+    )
+}

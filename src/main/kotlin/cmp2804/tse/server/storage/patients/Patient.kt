@@ -2,7 +2,7 @@ package cmp2804.tse.server.storage.patients
 
 import cmp2804.tse.server.storage.users.USER_TABLE_NAME
 import cmp2804.tse.server.storage.users.User
-import javax.persistence.*
+import jakarta.persistence.*
 
 const val PATIENT_TABLE_NAME = "patients"
 
@@ -43,6 +43,12 @@ data class Patient(
      */
     @JoinColumn(name = "${USER_TABLE_NAME}_id")
     @OneToMany(mappedBy = USER_TABLE_NAME, cascade = [CascadeType.ALL])
-    val carers: MutableList<User>,
+    val carers: MutableSet<User>,
 
+    ) {
+    constructor() : this(
+        null,
+        User(),
+        mutableSetOf(),
     )
+}

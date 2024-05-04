@@ -3,7 +3,7 @@ package cmp2804.tse.server.storage.users
 import cmp2804.tse.server.storage.roles.ROLE_TABLE_NAME
 import cmp2804.tse.server.storage.roles.Role
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import javax.persistence.*
+import jakarta.persistence.*
 
 const val USER_TABLE_NAME = "users"
 

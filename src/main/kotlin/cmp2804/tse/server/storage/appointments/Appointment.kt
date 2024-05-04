@@ -6,7 +6,7 @@ import cmp2804.tse.server.storage.patients.PATIENT_TABLE_NAME
 import cmp2804.tse.server.storage.patients.Patient
 import cmp2804.tse.server.storage.practices.PRACTICE_TABLE_NAME
 import cmp2804.tse.server.storage.practices.Practice
-import javax.persistence.*
+import jakarta.persistence.*
 
 const val APPOINTMENT_TABLE_NAME = "appointments"
 
@@ -65,7 +65,8 @@ data class Appointment(
      * chosen location may not be their actual location
      * (e.g. when they're at University)
      */
-    val homeLocation: Pair<Double, Double>,
+    val homeLocationLat: Double,
+    val homeLocationLong: Double,
 
     /**
      * Acceptable range
@@ -111,4 +112,21 @@ data class Appointment(
      */
     var status: Int,
 
-    )
+    ) {
+    constructor() : this(
+        null,
+        Patient(),
+        Doctor(),
+        mutableSetOf(),
+        0.0,
+        0.0,
+        0.0,
+        false,
+        Practice(),
+        "",
+        0L,
+        0
+    ) {
+
+    }
+}
