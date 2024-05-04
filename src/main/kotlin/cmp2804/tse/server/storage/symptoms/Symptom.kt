@@ -2,6 +2,8 @@ package cmp2804.tse.server.storage.symptoms
 
 import cmp2804.tse.server.storage.doctors.Doctor
 import jakarta.persistence.*
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotNull
 
 const val SYMPTOM_TABLE_NAME = "symptoms"
 
@@ -25,11 +27,13 @@ data class Symptom(
      * E.g "Headache"
      */
     @Column(unique = true)
+    @NotNull
     val name: String,
 
     @ManyToMany
     @JoinColumn(name = "doctor_id")
-    var doctors: Set<Doctor>
+    @NotNull
+    var doctors: Set<@Valid Doctor>
 ) {
 
     constructor() : this(
