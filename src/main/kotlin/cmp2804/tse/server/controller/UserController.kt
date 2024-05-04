@@ -41,7 +41,7 @@ class UserController(
 
     @GetMapping("/notifications/all")
     fun getNotifications(
-        user: User // TODO -> Get from login
+        user: User
     ): ResponseEntity<List<Notification>> {
         val notifications = notificationService.getNotifications(user)
 
@@ -50,7 +50,7 @@ class UserController(
 
     @GetMapping("/notifications/new")
     fun getUnreadNotifications(
-        user: User // TODO -> Get from login
+        user: User
     ): ResponseEntity<List<Notification>> {
         val notifications = notificationService.getNotifications(user)
             .filter { !it.seen }
