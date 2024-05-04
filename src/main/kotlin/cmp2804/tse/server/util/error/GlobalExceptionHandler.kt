@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
  * @author Ben Soones
  */
 @RestControllerAdvice
-object GlobalExceptionHandler {
+class GlobalExceptionHandler {
 
     /**
      * Exception handler for invalid method arguments
@@ -37,11 +37,23 @@ object GlobalExceptionHandler {
      * @see EntityNotFoundException
      */
     @ExceptionHandler(EntityNotFoundException::class)
-    fun handleNotFoundException(e: NotFoundException): ResponseEntity<String> {
+    fun handleNotFoundException(e: EntityNotFoundException): ResponseEntity<String> {
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
             .body(
                 e.message ?: "Resource not found"
             )
     }
+
+
+    @ExceptionHandler(Exception::class)
+    fun handleException(e: Exception): ResponseEntity<String>  {
+        e.printStackTrace()
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(
+                e.message ?: "Resource not found"
+            )
+    }
+
 }

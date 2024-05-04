@@ -1,7 +1,7 @@
 package cmp2804.tse.server.service
 
 import cmp2804.tse.server.service.base.BaseService
-import cmp2804.tse.server.storage.appointments.Appointment
+import cmp2804.tse.server.storage.users.SexEnum
 import cmp2804.tse.server.storage.users.User
 import cmp2804.tse.server.storage.users.UsersRepository
 import cmp2804.tse.server.util.error.errors.EntityNotFoundException
@@ -22,7 +22,7 @@ class UserService(
         return try {
             usersRepository.delete(user)
             true
-        } catch (e: Exception){
+        } catch (e: Exception) {
             // TODO -> Logging
             false
         }
@@ -49,7 +49,7 @@ class UserService(
             forename = signUpRequest.forename,
             surname = signUpRequest.surname,
             dateOfBirth = signUpRequest.dateOfBirth,
-            sex = signUpRequest.sex,
+            sex = SexEnum.values().getOrNull(signUpRequest.sex) ?: SexEnum.MALE,
             pronouns = signUpRequest.pronouns,
             email = signUpRequest.email,
             phone = signUpRequest.phone,
@@ -59,8 +59,8 @@ class UserService(
             roles = setOf()
         )
         user.let { usersRepository.save(it) }
-
         return user
+
     }
 
     fun getNotifications() {

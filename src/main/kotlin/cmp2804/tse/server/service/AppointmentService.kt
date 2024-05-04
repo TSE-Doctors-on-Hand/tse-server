@@ -44,7 +44,6 @@ class AppointmentService(
     }
 
     fun getAppointment(user: User, id: Long): Appointment {
-        val role = user.getHighestRole() ?: throw EntityNotFoundException("User does not have a role.")
         val appointment = appointmentRepository.findById(id).getOrNull()
             ?: throw EntityNotFoundException("Appointment not found: $id")
 

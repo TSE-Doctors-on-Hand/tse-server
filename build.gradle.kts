@@ -33,6 +33,7 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("javax.persistence:javax.persistence-api:2.2")
 	implementation("org.springframework.security:spring-security-oauth2-jose")
+	implementation("javax.xml.bind:jaxb-api:2.3.1")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

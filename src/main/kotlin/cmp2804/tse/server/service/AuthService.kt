@@ -10,12 +10,14 @@ import cmp2804.tse.server.util.resposne.USER_NOT_FOUND_MESSAGE
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import jakarta.servlet.http.Cookie
+import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.Duration
 import java.util.*
 
 const val TOKEN_COOKIE_NAME = "token"
@@ -44,11 +46,12 @@ class AuthService(
 
         val jwt = Jwts.builder()
             .setIssuer(issuer)
-            .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000)) // 24 hours
-            .signWith(SignatureAlgorithm.ES512, "secret").compact()
+            .setExpiration(Date(System.currentTimeMillis() + Duration.ofDays(1).toMillis())) // 24 hours
+            .signWith(SignatureAlgorithm.HS512, "secret").compact()
 
-        val cookie = Cookie("jwt", jwt)
-        cookie.isHttpOnly = true
+        val cookie = Cookie(TOKEN_COOKIE_NAME, jwt)
+//        cookie.isHttpOnly = true
+        response.addCookie(cookie)
 
         return ResponseEntity.ok(SUCCESS_MESSAGE)
     }
@@ -73,5 +76,14 @@ class AuthService(
             return null
         }
     }
+
+    fun getUserFromRequest(request: HttpServletRequest): User? {
+        println("COOKIES: ${request.cookies}")
+
+        val token = request.cookies.find { it.name == TOKEN_COOKIE_NAME }?.value ?: return null
+        return getUser(token)
+    }
+
+
 
 }
