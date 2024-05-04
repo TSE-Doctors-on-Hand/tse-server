@@ -15,7 +15,7 @@ class AppointmentService(
         return appointmentRepository.findByPatient(patient)
     }
 
-    fun getAppointment(id: Long): Appointment {
+    fun getAppointment(user: User, id: Long): Appointment {
         return appointmentRepository.findByid(id) ?: throw EntityNotFoundException("Appointment not found: $id")
     }
 
