@@ -1,8 +1,10 @@
 package cmp2804.tse.server.controller
 
 import cmp2804.tse.server.service.AppointmentService
+import cmp2804.tse.server.service.AuthService
 import cmp2804.tse.server.storage.appointments.Appointment
 import cmp2804.tse.server.storage.appointments.AppointmentStatus
+import cmp2804.tse.server.storage.users.User
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 @Validated
 class AppointmentController(
     private val appointmentService: AppointmentService
+    private val authService: AuthService
 ) {
     @GetMapping("/all/")
     fun getAppointments(): ResponseEntity<List<Appointment>> {
@@ -32,18 +35,20 @@ class AppointmentController(
     @GetMapping("/{id}")
     fun getAppointment(
         @PathVariable(name = "id")
-        id: Long
-    ): ResponseEntity<Appointment?> {
-        val appointment = appointmentService.getAppointment(id)
+        id: Long,
+        user: User // This should be automatically resolved
+    ): ResponseEntity<Any> {
+        val appointment = appointmentService.getAppointment(user, id)
         return ResponseEntity.ok(appointment)
     }
 
     @GetMapping("/{id}/status")
     fun getStatus(
         @PathVariable(name = "id")
-        id: Long
+        id: Long,
+        user: User
     ): ResponseEntity<Int> {
-        val appointment = appointmentService.getAppointment(id)
+        val appointment = appointmentService.getAppointment(user, id)
         val status = appointment.status
 
         return ResponseEntity.ok(status)
