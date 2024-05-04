@@ -1,10 +1,10 @@
 package cmp2804.tse.server.controller
 
 import cmp2804.tse.server.service.AppointmentService
-import cmp2804.tse.server.service.AuthService
 import cmp2804.tse.server.storage.appointments.Appointment
 import cmp2804.tse.server.storage.appointments.AppointmentStatus
 import cmp2804.tse.server.storage.users.User
+import cmp2804.tse.server.util.resposne.UNAUTHORIZED_MESSAGE
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,15 +20,12 @@ import org.springframework.web.bind.annotation.RestController
 @Validated
 class AppointmentController(
     private val appointmentService: AppointmentService,
-    private val authService: AuthService
 ) {
     @GetMapping("/all/")
-    fun getAppointments(): ResponseEntity<List<Appointment>> {
-        val username = "" // TODO -> From auth
-
-        val appointments = appointmentService.getAppointments(username)
-            .sortedBy { it.date }
-            .reversed()
+    fun getAppointments(
+        user: User
+    ): ResponseEntity<List<Appointment>> {
+        val appointments = appointmentService.getAppointments(user)
         return ResponseEntity.ok(appointments)
     }
 
@@ -77,8 +74,13 @@ class AppointmentController(
         @RequestBody
         suggestedDateTime: Long,
         user: User
-    ): ResponseEntity<Appointment> {
+    ): ResponseEntity<Any> {
         val appointment = appointmentService.getAppointment(user, id)
+
+        if (!appointment.hasDoctorPermission(user)) {
+            return ResponseEntity.badRequest().body(UNAUTHORIZED_MESSAGE)
+        }
+
         appointment.date = suggestedDateTime
         appointment.status = AppointmentStatus.AWAITING_CONFIRMATION.index
         val newAppointment = appointmentService.updateAppointment(appointment)
@@ -90,8 +92,13 @@ class AppointmentController(
         @PathVariable
         id: Long,
         user: User
-    ): ResponseEntity<Appointment> {
+    ): ResponseEntity<Any> {
         val appointment = appointmentService.getAppointment(user, id)
+
+        if (!appointment.hasDoctorPermission(user)) {
+            return ResponseEntity.badRequest().body(UNAUTHORIZED_MESSAGE)
+        }
+
         appointment.status = AppointmentStatus.CONFIRMED.index
         val newAppointment = appointmentService.updateAppointment(appointment)
         return ResponseEntity.ok(newAppointment)
