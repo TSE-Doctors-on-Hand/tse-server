@@ -1,5 +1,8 @@
 package cmp2804.tse.server.controller
 
+import cmp2804.tse.server.service.NotificationService
+import cmp2804.tse.server.service.UserService
+import cmp2804.tse.server.storage.notifications.Notification
 import cmp2804.tse.server.storage.users.User
 import cmp2804.tse.server.storage.users.UsersRepository
 import cmp2804.tse.server.util.ResponseUtils
@@ -15,14 +18,17 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/user")
 @Validated
-class UserController(private val usersRepository: UsersRepository) {
+class UserController(
+    private val userService: UserService,
+    private val notificationService: NotificationService
+) {
 
     @GetMapping("/{id}")
     fun getUser(
         @PathVariable(value = "id")
         userId: Long
     ): ResponseEntity<User> {
-        return ResponseUtils.getEntryResponseById(usersRepository, userId)
+        return ResponseUtils.getEntryResponseById(userService, userId)
     }
 
     @PostMapping("/")
