@@ -74,4 +74,13 @@ class AuthService(
         }
     }
 
+    fun getUserFromRequest(request: HttpServletRequest): User? {
+        println("COOKIES: ${request.cookies}")
+
+        val token = request.cookies.find { it.name == TOKEN_COOKIE_NAME }?.value ?: return null
+        return getUser(token)
+    }
+
+
+
 }
