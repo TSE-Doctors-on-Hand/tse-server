@@ -17,19 +17,23 @@ import org.springframework.web.bind.annotation.RestController
 @Validated
 class DoctorController(private val doctorService: DoctorService) {
 
-    // Gets all doctors within km range
-    @GetMapping("/range/{lat}/{long}/{range}")
-    fun getDoctorsInRange(
-        @PathVariable(value = "lat")
-        lat: Double,
-        @PathVariable(value = "long")
-        long: Double,
-        @PathVariable(value = "range") // In KM
-        range: Double,
-    ): ResponseEntity<List<Doctor>> {
+    @GetMapping("/match/{lat}/{long}/{range}/{limit}")
+    fun matchDoctors(
+        @PathVariable lat: Double,
+        @PathVariable long: Double,
+        @PathVariable range: Double,
+        @PathVariable(required = false) limit: Int,
+        @RequestParam(required = true) symptoms: List<Symptom>
+    ): ResponseEntity<List<MatchedDoctor>> {
         val currentPos = LatLong(lat, long)
-        val doctorsInRange = doctorService.getDoctorsInRange(currentPos, range)
-        return ResponseEntity.ok(doctorsInRange)
+        val matchedDoctors = doctorService.getMatchingDoctors(
+            currentPos,
+            symptoms.toSet(),
+            range,
+            limit
+        )
+
+        return ResponseEntity.ok(matchedDoctors)
     }
 
     // Get doctor by ID
@@ -37,7 +41,7 @@ class DoctorController(private val doctorService: DoctorService) {
     fun getDoctorById(
         @PathVariable(value = "id")
         doctorId: Long
-    ) {
-//        return ResponseUtils.getEntryResponseById(doctorsRepository, doctorId)
+    ): ResponseEntity<Doctor> {
+        return ResponseUtils.getEntryResponseById(doctorService, doctorId)
     }
 }
