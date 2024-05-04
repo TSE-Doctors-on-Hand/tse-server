@@ -17,9 +17,11 @@ data class LatLong(
     val longitude: Double
 ) {
 
-    fun isInRange(latLong: Pair<Double, Double>, distance: Double): Boolean {
-        return isInRange(latLong.first, latLong.second, distance)
-    }
+    fun isWithinRange(center: LatLong, distance: Double): Boolean {
+        val cartesianCenter = CartesianPoint.fromLatLong(center)
+        val cartesianPoint = CartesianPoint.fromLatLong(this)
+
+        val dotProduct = dotProduct(cartesianCenter, cartesianPoint) / (EARTH_RADIUS_KM.pow(2))
 
         return dotProduct >= cos(getAngularRadius(distance))
     }
