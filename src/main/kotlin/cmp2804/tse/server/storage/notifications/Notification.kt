@@ -28,7 +28,7 @@ data class Notification(
      * @see [User]
      */
     @OneToOne(cascade = [CascadeType.ALL])
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "user_id")
     val user: User,
 
     /**

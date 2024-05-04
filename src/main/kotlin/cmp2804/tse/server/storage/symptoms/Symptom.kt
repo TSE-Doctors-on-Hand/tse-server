@@ -26,15 +26,16 @@ data class Symptom(
      */
     @Column(unique = true)
     val name: String,
-) {
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "doctor_id")
-    lateinit var doctor: Doctor
+    var doctors: Set<Doctor>
+) {
 
     constructor() : this(
         null,
         "",
+        setOf()
 
     )
 }

@@ -24,15 +24,18 @@ data class Role(
 
     @Enumerated(EnumType.STRING)
     @Column(length = 7) // Patient - 7 chars
-    val name: RolesEnum
+    val name: RolesEnum,
+
+    @ManyToMany
+    @JoinColumn(name = "user_id")
+    var users: Set<User>
 ) {
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    lateinit var user: User
+
 
     constructor() : this(
         null,
         RolesEnum.PATIENT,
+        setOf()
     )
 }

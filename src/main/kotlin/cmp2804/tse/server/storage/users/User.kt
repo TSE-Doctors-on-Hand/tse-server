@@ -88,7 +88,7 @@ data class User(
 
     var nextOfKin: String,
 
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    @ManyToMany(mappedBy = "users", cascade = [CascadeType.ALL])
     var roles: Set<Role>
 
 ) {

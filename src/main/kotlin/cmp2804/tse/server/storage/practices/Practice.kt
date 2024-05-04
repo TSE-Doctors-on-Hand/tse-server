@@ -44,11 +44,13 @@ data class Practice(
      */
     val address: String,
 
+    @ManyToMany
+    @JoinColumn(name = "doctor_id")
+    var doctors: Set<Doctor>,
+
 ) {
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    lateinit var doctor: Doctor
+
 
     constructor() : this(
         null,
@@ -56,6 +58,7 @@ data class Practice(
         0.0,
         0.0,
         "",
+        setOf()
     )
 
     fun latLong(): LatLong = LatLong(locationLat, locationLong)

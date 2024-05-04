@@ -34,7 +34,7 @@ data class Appointment(
      * @see Patient
      */
     @OneToOne(cascade = [CascadeType.ALL])
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "patient_id")
     val patient: Patient,
 
     /**
@@ -45,7 +45,7 @@ data class Appointment(
      * @see Doctor
      */
     @OneToOne(cascade = [CascadeType.ALL])
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "doctor_id")
     val doctor: Doctor,
 
     /**
@@ -93,7 +93,7 @@ data class Appointment(
      * the doctor to choose a suitable one (within range)
      */
     @OneToOne(cascade = [CascadeType.ALL])
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "practice_id")
     val appointmentLocation: Practice,
 
     /**
