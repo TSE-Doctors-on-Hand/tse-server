@@ -1,11 +1,16 @@
 package cmp2804.tse.server.util
 
+import cmp2804.tse.server.util.matcher.CartesianPoint
+import cmp2804.tse.server.util.matcher.dotProduct
 import kotlin.math.*
 
 // https://imagine.gsfc.nasa.gov/features/cosmic/earth_info.html#:~:text=Note%3A%20The%20Earth%20is%20almost,the%20polar%20and%20equatorial%20values.
 // Average of both values to make perfect sphere
 // TODO -> Reference properly
-private const val EARTH_RADIUS_KM = 6367.5
+const val EARTH_RADIUS_KM = 6367.5
+private val getAngularRadius: (Double) -> Double = { distance ->
+    distance / EARTH_RADIUS_KM
+}
 
 data class LatLong(
     val latitude: Double,
@@ -16,18 +21,18 @@ data class LatLong(
         return isInRange(latLong.first, latLong.second, distance)
     }
 
-    fun isInRange(lat: Double, long: Double, distance: Double): Boolean {
-        return (haversineDistance(Pair(lat,long)) <= distance)
+        return dotProduct >= cos(getAngularRadius(distance))
     }
+
 
     // https://www.igismap.com/haversine-formula-calculate-geographic-distance-earth/
     // TODO -> Reference properly
     // TODO -> Explain why using pair for other values
-    private fun haversineDistance(point2: Pair<Double, Double>): Double {
+    fun haversineDistance(other: LatLong): Double {
         val lat1 = Math.toRadians(latitude)
         val lon1 = Math.toRadians(longitude)
-        val lat2 = Math.toRadians(point2.first)
-        val lon2 = Math.toRadians(point2.second)
+        val lat2 = Math.toRadians(other.latitude)
+        val lon2 = Math.toRadians(other.longitude)
 
         val dLat = lat2 - lat1
         val dLon = lon2 - lon1
