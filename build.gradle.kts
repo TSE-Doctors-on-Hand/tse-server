@@ -30,6 +30,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.sentry:sentry-spring-boot-starter-jakarta")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("javax.persistence:javax.persistence-api:2.2")
 	implementation("org.springframework.security:spring-security-oauth2-jose")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
