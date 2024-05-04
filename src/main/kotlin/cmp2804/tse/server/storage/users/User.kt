@@ -111,6 +111,9 @@ data class User(
 
     fun comparePassword(password: String): Boolean {
         return BCryptPasswordEncoder().matches(password, this.password)
+    }
 
+    fun getHighestRole(): Role? {
+        return this.roles.maxByOrNull { it.name.ordinal }
     }
 }
