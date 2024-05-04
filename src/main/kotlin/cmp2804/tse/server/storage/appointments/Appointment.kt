@@ -1,14 +1,19 @@
 package cmp2804.tse.server.storage.appointments
 
-import cmp2804.tse.server.storage.doctors.DOCTOR_TABLE_NAME
 import cmp2804.tse.server.storage.doctors.Doctor
-import cmp2804.tse.server.storage.patients.PATIENT_TABLE_NAME
 import cmp2804.tse.server.storage.patients.Patient
-import cmp2804.tse.server.storage.practices.PRACTICE_TABLE_NAME
 import cmp2804.tse.server.storage.practices.Practice
 import cmp2804.tse.server.storage.roles.RolesEnum
 import cmp2804.tse.server.storage.users.User
+import cmp2804.tse.server.storage.validators.futuretimestamp.FutureTimestamp
 import jakarta.persistence.*
+import jakarta.validation.Valid
+import jakarta.validation.constraints.DecimalMax
+import jakarta.validation.constraints.DecimalMin
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.PositiveOrZero
+import org.hibernate.validator.constraints.Length
+import org.hibernate.validator.constraints.Range
 
 const val APPOINTMENT_TABLE_NAME = "appointments"
 
@@ -35,6 +40,8 @@ data class Appointment(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "patient_id")
+    @NotNull
+    @Valid
     val patient: Patient,
 
     /**
@@ -46,13 +53,15 @@ data class Appointment(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "doctor_id")
+    @NotNull
+    @Valid
     val doctor: Doctor,
 
     /**
      * Patient chosen list of available dates
      */
     @ElementCollection
-    var availableDates: MutableSet<Long>,
+    var availableDates: MutableSet<@FutureTimestamp Long>,
 
     /**
      * * A Latitude and Longitude pair showing the GPS co-ordinates of the practice
@@ -67,7 +76,14 @@ data class Appointment(
      * chosen location may not be their actual location
      * (e.g. when they're at University)
      */
+    @DecimalMin("-90.00")
+    @DecimalMax("90.00")
+    @NotNull
     val homeLocationLat: Double,
+
+    @DecimalMin("-180.00")
+    @DecimalMax("180.00")
+    @NotNull
     val homeLocationLong: Double,
 
     /**
@@ -78,11 +94,14 @@ data class Appointment(
      *
      * **NOTE: THE RANGE IS IN MILES**
      */
+    @PositiveOrZero
+    @NotNull
     val range: Double,
 
     /**
      * Accessibility feature: Allow for home visits just like the NHS
      */
+    @NotNull
     val homeVisits: Boolean,
 
     /**
@@ -94,17 +113,22 @@ data class Appointment(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "practice_id")
+    @NotNull
+    @Valid
     val appointmentLocation: Practice,
 
     /**
      * Any special considerations such as accessibility or preferences
      * for religious or other reasons
      */
+    @Column(length = 4000)
+    @Length(max=4000)
     val considerations: String,
 
     /**
      * Chosen appointment date upon between the doctor and patient
      */
+    @FutureTimestamp
     var date: Long?,
 
     /**
@@ -112,6 +136,8 @@ data class Appointment(
      *
      * @see AppointmentStatus
      */
+    @Range(min = 0, max = 6)
+    @NotNull
     var status: Int,
 
     ) {

@@ -1,8 +1,10 @@
 package cmp2804.tse.server.storage.notifications
 
-import cmp2804.tse.server.storage.users.USER_TABLE_NAME
 import cmp2804.tse.server.storage.users.User
 import jakarta.persistence.*
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotNull
+import org.hibernate.validator.constraints.Length
 
 const val NOTIFICATION_TABLE_NAME = "notifications"
 
@@ -29,6 +31,8 @@ data class Notification(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "user_id")
+    @NotNull
+    @Valid
     val user: User,
 
     /**
@@ -36,6 +40,9 @@ data class Notification(
      *
      * This will be shown to the user
      */
+    @Column(length = 1000)
+    @Length(max = 1000)
+    @NotNull
     val text: String,
 
     /**
@@ -46,6 +53,7 @@ data class Notification(
     /**
      * Whether the notificaiton has been seen or not
      */
+    @NotNull
     val seen: Boolean = false,
 
 

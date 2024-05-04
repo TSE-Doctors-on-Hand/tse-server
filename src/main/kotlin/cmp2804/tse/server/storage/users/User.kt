@@ -1,10 +1,15 @@
 package cmp2804.tse.server.storage.users
 
-import cmp2804.tse.server.storage.patients.Patient
-import cmp2804.tse.server.storage.roles.ROLE_TABLE_NAME
 import cmp2804.tse.server.storage.roles.Role
+import cmp2804.tse.server.storage.validators.pasttimestamp.PastTimestamp
+import cmp2804.tse.server.storage.validators.phone.Phone
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import jakarta.persistence.*
+import jakarta.validation.constraints.DecimalMax
+import jakarta.validation.constraints.DecimalMin
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotNull
+import org.hibernate.validator.constraints.Length
 
 const val USER_TABLE_NAME = "users"
 
@@ -23,34 +28,45 @@ data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @Column(unique = true)
+    @Column(unique = true, length = 50)
+    @Length(min = 3, max = 50)
+    @NotNull
     var username: String,
 
     /**
      * A hashed and salted password
      */
+    @NotNull
     var password: String,
-
 
     /**
      * A user's first name
      */
+    @Column(length = 50)
+    @Length(min = 2, max = 50)
+    @NotNull
     var forename: String,
 
     /**
      * A user's last name
      */
+    @Column(length = 50)
+    @Length(min = 2, max = 50)
+    @NotNull
     var surname: String,
 
     /**
      * A user's date of both
      */
+    @PastTimestamp
+    @NotNull
     var dateOfBirth: Long,
 
     /**
      * A user's biological sex
      * This is their sex at birth, which is relevant for medical questions
      */
+    @NotNull
     var sex: SexEnum,
 
     /**
@@ -59,19 +75,23 @@ data class User(
      * preferred pronoun
      */
     @ElementCollection
-    var pronouns: MutableList<String>,
+    @NotNull
+    var pronouns: MutableList<@Length(max = 17) String>,
 
     /**
      * A user's email address, this will be used to notify
      * them of updates to their application and communication
      * with their doctor
      */
+    @Email
+    @NotNull
     var email: String,
 
     /**
      * A user's phone number, for use as an emergency
      * form of contact by a doctor, if required
      */
+    @Phone
     var phone: String?,
 
     /**
@@ -83,21 +103,24 @@ data class User(
      * This will be the postal address for any physical forms of
      * communication
      */
+    @DecimalMin("-90.00")
+    @DecimalMax("90.00")
+    @NotNull
     var homeLocationLat: Double,
+
+    @DecimalMin("-180.00")
+    @DecimalMax("180.00")
+    @NotNull
     var homeLocationLong: Double,
 
     var nextOfKin: String,
 
     @ManyToMany(mappedBy = "users", cascade = [CascadeType.ALL])
+    @NotNull
     var roles: Set<Role>
 
 ) {
-
-//    @ManyToOne
-//    @JoinColumn(name = "id")
-//    lateinit var carer: Patient
-
-    constructor(): this(
+    constructor() : this(
         null,
         "",
         "",

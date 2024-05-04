@@ -3,6 +3,11 @@ package cmp2804.tse.server.storage.practices
 import cmp2804.tse.server.storage.doctors.Doctor
 import cmp2804.tse.server.util.LatLong
 import jakarta.persistence.*
+import jakarta.validation.Valid
+import jakarta.validation.constraints.DecimalMax
+import jakarta.validation.constraints.DecimalMin
+import jakarta.validation.constraints.NotNull
+import org.hibernate.validator.constraints.Length
 
 const val PRACTICE_TABLE_NAME = "practices"
 
@@ -26,6 +31,9 @@ data class Practice(
      *
      * This will appear on the search list
      */
+    @Column(length = 1000)
+    @Length(max = 1000)
+    @NotNull
     val name: String,
 
     /**
@@ -34,7 +42,14 @@ data class Practice(
      * A Latitude and Longitude pair showing the GPS co-ordinates of the practice
      * This can be used with a maps API to get the location
      */
+    @DecimalMin("-90.00")
+    @DecimalMax("90.00")
+    @NotNull
     val locationLat: Double,
+
+    @DecimalMin("-180.00")
+    @DecimalMax("180.00")
+    @NotNull
     val locationLong: Double,
 
     /**
@@ -42,16 +57,15 @@ data class Practice(
      *
      * A text address, showing postcodes, street names, etc. for a user to view
      */
+    @NotNull
     val address: String,
 
     @ManyToMany
     @JoinColumn(name = "doctor_id")
-    var doctors: Set<Doctor>,
+    @NotNull
+    var doctors: Set<@Valid Doctor>,
 
 ) {
-
-
-
     constructor() : this(
         null,
         "",

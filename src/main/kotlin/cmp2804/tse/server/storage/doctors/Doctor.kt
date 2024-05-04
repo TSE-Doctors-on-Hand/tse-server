@@ -1,12 +1,12 @@
 package cmp2804.tse.server.storage.doctors
 
-import cmp2804.tse.server.storage.practices.PRACTICE_TABLE_NAME
 import cmp2804.tse.server.storage.practices.Practice
-import cmp2804.tse.server.storage.symptoms.SYMPTOM_TABLE_NAME
 import cmp2804.tse.server.storage.symptoms.Symptom
-import cmp2804.tse.server.storage.users.USER_TABLE_NAME
 import cmp2804.tse.server.storage.users.User
 import jakarta.persistence.*
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotNull
+import org.hibernate.validator.constraints.Length
 
 const val DOCTOR_TABLE_NAME = "doctors"
 
@@ -35,6 +35,9 @@ data class Doctor(
      *
      * Example: "Infectious Diseases"
      */
+    @Column(length = 256)
+    @Length(max = 256)
+    @NotNull
     val speciality: String,
 
     /**
@@ -42,6 +45,8 @@ data class Doctor(
      *
      * This can contain any information such as qualifications, experience, etc.
      */
+    @Column(length = 4000)
+    @Length(max = 4000)
     val aboutMe: String,
 
     /**
@@ -50,6 +55,8 @@ data class Doctor(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "user_id")
+    @NotNull
+    @Valid
     val user: User,
 
     /**
@@ -61,7 +68,8 @@ data class Doctor(
      * @see [Practice]
      */
     @ManyToMany(mappedBy = "doctors", cascade = [CascadeType.ALL])
-    val practices: MutableSet<Practice>,
+    @NotNull
+    val practices: MutableSet<@Valid Practice>,
 
     /**
      * List of symptoms the doctor can treat for
@@ -73,7 +81,8 @@ data class Doctor(
      * @see [Doctor]
      */
     @ManyToMany(mappedBy = "doctors", cascade = [CascadeType.ALL])
-    val symptoms: MutableSet<Symptom>
+    @NotNull
+    val symptoms: MutableSet<@Valid Symptom>
 ) {
     constructor() : this(
         null,

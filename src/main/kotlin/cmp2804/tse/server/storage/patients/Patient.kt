@@ -3,6 +3,8 @@ package cmp2804.tse.server.storage.patients
 import cmp2804.tse.server.storage.users.USER_TABLE_NAME
 import cmp2804.tse.server.storage.users.User
 import jakarta.persistence.*
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotNull
 
 const val PATIENT_TABLE_NAME = "patients"
 
@@ -29,6 +31,8 @@ data class Patient(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "user_id")
+    @NotNull
+    @Valid
     val user: User,
 
 //    /**
