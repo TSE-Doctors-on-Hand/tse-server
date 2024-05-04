@@ -80,10 +80,10 @@ class AppointmentController(
         appointment.date = suggestedDateTime
         appointment.status = AppointmentStatus.AWAITING_CONFIRMATION.index
         val newAppointment = appointmentService.updateAppointment(appointment)
-        return  ResponseEntity.ok(newAppointment)
+        return ResponseEntity.ok(newAppointment)
     }
 
-    @PostMapping("/{id}/date/reject")
+    @PostMapping("/{id}/date/approve")
     fun approveDate(
         @PathVariable
         id: Long,
@@ -91,7 +91,7 @@ class AppointmentController(
         val appointment = appointmentService.getAppointment(id)
         appointment.status = AppointmentStatus.CONFIRMED.index
         val newAppointment = appointmentService.updateAppointment(appointment)
-        return  ResponseEntity.ok(newAppointment)
+        return ResponseEntity.ok(newAppointment)
     }
 
     @PostMapping("/{id}/date/reject")
@@ -105,7 +105,7 @@ class AppointmentController(
         appointment.status = AppointmentStatus.REVIEWED.index
         appointment.availableDates = newDateTimes
         val newAppointment = appointmentService.updateAppointment(appointment)
-        return  ResponseEntity.ok(newAppointment)
+        return ResponseEntity.ok(newAppointment)
     }
 
     @PostMapping("/")
