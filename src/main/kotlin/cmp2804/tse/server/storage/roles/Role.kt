@@ -2,6 +2,8 @@ package cmp2804.tse.server.storage.roles
 
 import cmp2804.tse.server.storage.users.User
 import jakarta.persistence.*
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotNull
 
 const val ROLE_TABLE_NAME = "roles"
 
@@ -24,15 +26,14 @@ data class Role(
 
     @Enumerated(EnumType.STRING)
     @Column(length = 7) // Patient - 7 chars
+    @NotNull
     val name: RolesEnum,
 
     @ManyToMany
     @JoinColumn(name = "user_id")
-    var users: Set<User>
+    @NotNull
+    var users: Set<@Valid User>
 ) {
-
-
-
     constructor() : this(
         null,
         RolesEnum.PATIENT,
