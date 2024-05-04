@@ -48,8 +48,9 @@ class AuthService(
             .setExpiration(Date(System.currentTimeMillis() + Duration.ofDays(1).toMillis())) // 24 hours
             .signWith(SignatureAlgorithm.HS512, "secret").compact()
 
-        val cookie = Cookie("jwt", jwt)
-        cookie.isHttpOnly = true
+        val cookie = Cookie(TOKEN_COOKIE_NAME, jwt)
+//        cookie.isHttpOnly = true
+        response.addCookie(cookie)
 
         return ResponseEntity.ok(SUCCESS_MESSAGE)
     }
