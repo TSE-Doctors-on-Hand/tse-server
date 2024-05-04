@@ -49,7 +49,7 @@ class UserService(
             forename = signUpRequest.forename,
             surname = signUpRequest.surname,
             dateOfBirth = signUpRequest.dateOfBirth,
-            sex = signUpRequest.sex,
+            sex = SexEnum.values().getOrNull(signUpRequest.sex) ?: SexEnum.MALE,
             pronouns = signUpRequest.pronouns,
             email = signUpRequest.email,
             phone = signUpRequest.phone,
