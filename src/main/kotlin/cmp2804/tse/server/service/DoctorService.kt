@@ -13,20 +13,25 @@ class DoctorService(
     private val doctorsRepository: DoctorsRepository
 ) {
 
-    fun getDoctorsInRange(latLong: LatLong, rangeKm: Double): List<Doctor> {
+    fun getDoctorsInRange(center: LatLong, rangeKm: Double): List<Doctor> {
         val doctors = doctorsRepository.findAll().filter { doctor ->
             doctor.practices.any { practice ->
-                latLong.isInRange(practice.locationLat, practice.locationLong, rangeKm)
+                practice.latLong().isWithinRange(center, rangeKm)
             }
         }
 
         return doctors
     }
 
-    fun getMatchingDoctors(symptoms: List<Symptom>, limit: Int = MATCHING_DOCTOR_LIMIT) {
-        // For now, this will check ALL doctors, regardless of location
+    fun getMatchingDoctors(
+        location: LatLong,
+        symptoms: Set<Symptom>,
+        rangeKm: Double = 5.00,
+        limit: Int = MATCHING_DOCTOR_LIMIT
+    ): List<MatchedDoctor> {
+        val doctors = getDoctorsInRange(location, rangeKm).toSet()
 
-
+        return SymptomMatcher.matchDoctors(doctors, symptoms, location)
     }
 
 }
