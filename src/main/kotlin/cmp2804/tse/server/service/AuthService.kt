@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.Duration
 import java.util.*
 
 const val TOKEN_COOKIE_NAME = "token"
@@ -44,8 +45,8 @@ class AuthService(
 
         val jwt = Jwts.builder()
             .setIssuer(issuer)
-            .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000)) // 24 hours
-            .signWith(SignatureAlgorithm.ES512, "secret").compact()
+            .setExpiration(Date(System.currentTimeMillis() + Duration.ofDays(1).toMillis())) // 24 hours
+            .signWith(SignatureAlgorithm.HS512, "secret").compact()
 
         val cookie = Cookie("jwt", jwt)
         cookie.isHttpOnly = true
