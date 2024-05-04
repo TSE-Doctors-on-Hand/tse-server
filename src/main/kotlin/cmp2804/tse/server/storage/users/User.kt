@@ -19,38 +19,38 @@ const val USER_TABLE_NAME = "users"
 data class User(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
     @Column(unique = true)
-    val username: String,
+    var username: String,
 
     /**
      * A hashed and salted password
      */
-    val password: String,
+    var password: String,
 
 
     /**
      * A user's first name
      */
-    val forename: String,
+    var forename: String,
 
     /**
      * A user's last name
      */
-    val surname: String,
+    var surname: String,
 
     /**
      * A user's date of both
      */
-    val dateOfBirth: Long,
+    var dateOfBirth: Long,
 
     /**
      * A user's biological sex
      * This is their sex at birth, which is relevant for medical questions
      */
-    val sex: SexEnum,
+    var sex: SexEnum,
 
     /**
      * A list of pronouns for effective communication between
@@ -58,20 +58,20 @@ data class User(
      * preferred pronoun
      */
     @ElementCollection
-    val pronouns: MutableList<String>,
+    var pronouns: MutableList<String>,
 
     /**
      * A user's email address, this will be used to notify
      * them of updates to their application and communication
      * with their doctor
      */
-    val email: String,
+    var email: String,
 
     /**
      * A user's phone number, for use as an emergency
      * form of contact by a doctor, if required
      */
-    val phone: String?,
+    var phone: String?,
 
     /**
      * A user's default home location
@@ -82,16 +82,33 @@ data class User(
      * This will be the postal address for any physical forms of
      * communication
      */
-    val homeLocationLat: Double,
-    val homeLocationLong: Double,
+    var homeLocationLat: Double,
+    var homeLocationLong: Double,
 
-    val nextOfKin: String,
+    var nextOfKin: String,
 
     @JoinColumn(name = "${ROLE_TABLE_NAME}_id")
     @OneToMany(mappedBy = ROLE_TABLE_NAME, cascade = [CascadeType.ALL])
-    val roles: Set<Role>
+    var roles: Set<Role>
 
 ) {
+    constructor(): this(
+        null,
+        "",
+        "",
+        "",
+        "",
+        0L,
+        SexEnum.MALE,
+        mutableListOf(),
+        "",
+        "",
+        0.00,
+        0.00,
+        "",
+        setOf(),
+    )
+
     fun comparePassword(password: String): Boolean {
         return BCryptPasswordEncoder().matches(password, this.password)
 
