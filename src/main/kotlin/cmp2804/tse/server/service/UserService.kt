@@ -12,12 +12,21 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(
     private val usersRepository: UsersRepository,
-): BaseService<User, Long>  {
+) : BaseService<User, Long> {
 
     fun save(user: User): User {
         return usersRepository.save(user)
     }
 
+    fun deleteUser(user: User): Boolean {
+        return try {
+            usersRepository.delete(user)
+            true
+        } catch (e: Exception){
+            // TODO -> Logging
+            false
+        }
+    }
 
     fun getUserByUsername(username: String): User {
         return usersRepository.findByUsername(username)
