@@ -1,5 +1,6 @@
 package cmp2804.tse.server.storage.practices
 
+import cmp2804.tse.server.storage.doctors.Doctor
 import cmp2804.tse.server.util.LatLong
 import jakarta.persistence.*
 
@@ -15,6 +16,7 @@ const val PRACTICE_TABLE_NAME = "practices"
 @Entity
 @Table(name = PRACTICE_TABLE_NAME)
 data class Practice(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -40,8 +42,14 @@ data class Practice(
      *
      * A text address, showing postcodes, street names, etc. for a user to view
      */
-    val address: String
+    val address: String,
+
 ) {
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    lateinit var doctor: Doctor
+
     constructor() : this(
         null,
         "",

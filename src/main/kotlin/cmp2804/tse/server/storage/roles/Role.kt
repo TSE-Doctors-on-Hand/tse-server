@@ -26,6 +26,11 @@ data class Role(
     @Column(length = 7) // Patient - 7 chars
     val name: RolesEnum
 ) {
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    lateinit var user: User
+
     constructor() : this(
         null,
         RolesEnum.PATIENT,

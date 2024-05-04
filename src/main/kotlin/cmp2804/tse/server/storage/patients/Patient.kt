@@ -27,28 +27,27 @@ data class Patient(
      * Corresponding user
      * @see [User]
      */
-    @JoinColumn(name = "${USER_TABLE_NAME}_id")
-    @OneToOne(mappedBy = USER_TABLE_NAME, cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.ALL])
+    @PrimaryKeyJoinColumn
     val user: User,
 
-    /**
-     * Carer(s) information
-     *
-     * Some users using this service may be vulnerable and require care, such as
-     * Children, SEN users, and the elderly
-     *
-     * A single patient may have multiple carers, such as care home staff or parents
-     *
-     * @see [User]
-     */
-    @JoinColumn(name = "${USER_TABLE_NAME}_id")
-    @OneToMany(mappedBy = USER_TABLE_NAME, cascade = [CascadeType.ALL])
-    val carers: MutableSet<User>,
+//    /**
+//     * Carer(s) information
+//     *
+//     * Some users using this service may be vulnerable and require care, such as
+//     * Children, SEN users, and the elderly
+//     *
+//     * A single patient may have multiple carers, such as care home staff or parents
+//     *
+//     * @see [User]
+//     */
+//    @OneToMany(mappedBy = "carer", cascade = [CascadeType.ALL])
+//    val carers: MutableSet<Patient>,
 
     ) {
     constructor() : this(
         null,
         User(),
-        mutableSetOf(),
+//        mutableSetOf(),
     )
 }

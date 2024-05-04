@@ -31,8 +31,8 @@ data class Appointment(
      *
      * @see Patient
      */
-    @JoinColumn(name = "${PATIENT_TABLE_NAME}_id")
-    @OneToOne(mappedBy = PATIENT_TABLE_NAME, cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.ALL])
+    @PrimaryKeyJoinColumn
     val patient: Patient,
 
     /**
@@ -42,8 +42,8 @@ data class Appointment(
      *
      * @see Doctor
      */
-    @JoinColumn(name = "${DOCTOR_TABLE_NAME}_id")
-    @OneToOne(mappedBy = DOCTOR_TABLE_NAME, cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.ALL])
+    @PrimaryKeyJoinColumn
     val doctor: Doctor,
 
     /**
@@ -90,8 +90,8 @@ data class Appointment(
      * a doctor is part of multiple practices, this allows
      * the doctor to choose a suitable one (within range)
      */
-    @JoinColumn(name = "${PRACTICE_TABLE_NAME}_id")
-    @OneToOne(mappedBy = PRACTICE_TABLE_NAME, cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.ALL])
+    @PrimaryKeyJoinColumn
     val appointmentLocation: Practice,
 
     /**

@@ -48,8 +48,8 @@ data class Doctor(
      * Corresponding user
      * @see [User]
      */
-    @JoinColumn(name = "${USER_TABLE_NAME}_id")
-    @OneToOne(mappedBy = USER_TABLE_NAME, cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.ALL])
+    @PrimaryKeyJoinColumn
     val user: User,
 
     /**
@@ -60,8 +60,7 @@ data class Doctor(
      * are supported
      * @see [Practice]
      */
-    @JoinColumn(name = "${PRACTICE_TABLE_NAME}_id")
-    @OneToMany(mappedBy = PRACTICE_TABLE_NAME, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "doctor", cascade = [CascadeType.ALL])
     val practices: MutableSet<Practice>,
 
     /**
@@ -73,8 +72,7 @@ data class Doctor(
      * @see [Symptom]
      * @see [Doctor]
      */
-    @JoinColumn(name = "${SYMPTOM_TABLE_NAME}_id")
-    @OneToMany(mappedBy = SYMPTOM_TABLE_NAME, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "doctor", cascade = [CascadeType.ALL])
     val symptoms: MutableSet<Symptom>
 ) {
     constructor() : this(

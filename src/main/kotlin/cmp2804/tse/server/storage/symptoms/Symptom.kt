@@ -1,5 +1,6 @@
 package cmp2804.tse.server.storage.symptoms
 
+import cmp2804.tse.server.storage.doctors.Doctor
 import jakarta.persistence.*
 
 const val SYMPTOM_TABLE_NAME = "symptoms"
@@ -26,6 +27,11 @@ data class Symptom(
     @Column(unique = true)
     val name: String,
 ) {
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    lateinit var doctor: Doctor
+
     constructor() : this(
         null,
         "",

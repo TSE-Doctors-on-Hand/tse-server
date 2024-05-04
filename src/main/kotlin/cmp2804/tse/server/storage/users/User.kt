@@ -1,5 +1,6 @@
 package cmp2804.tse.server.storage.users
 
+import cmp2804.tse.server.storage.patients.Patient
 import cmp2804.tse.server.storage.roles.ROLE_TABLE_NAME
 import cmp2804.tse.server.storage.roles.Role
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -87,11 +88,15 @@ data class User(
 
     var nextOfKin: String,
 
-    @JoinColumn(name = "${ROLE_TABLE_NAME}_id")
-    @OneToMany(mappedBy = ROLE_TABLE_NAME, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     var roles: Set<Role>
 
 ) {
+
+//    @ManyToOne
+//    @JoinColumn(name = "id")
+//    lateinit var carer: Patient
+
     constructor(): this(
         null,
         "",
