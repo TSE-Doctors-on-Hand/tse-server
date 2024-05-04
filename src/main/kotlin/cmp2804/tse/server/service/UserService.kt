@@ -15,9 +15,12 @@ class UserService(
             ?: throw EntityNotFoundException("Username not found: $username")
     }
 
-    fun findById(id: Long): User {
+    fun findByUsername(username: String): User? {
+        return usersRepository.findByUsername(username)
+    }
+
+    fun findById(id: Long): User? {
         return usersRepository.findByid(id)
-            ?: throw EntityNotFoundException("Username not found: $id")
     }
 
     fun createUser(signUpRequest: SignUpRequest, hashedPassword: String): User {
