@@ -5,7 +5,9 @@ import cmp2804.tse.server.storage.appointments.Appointment
 import cmp2804.tse.server.storage.doctors.Doctor
 import cmp2804.tse.server.storage.doctors.DoctorsRepository
 import cmp2804.tse.server.storage.symptoms.Symptom
+import cmp2804.tse.server.storage.users.User
 import cmp2804.tse.server.util.LatLong
+import cmp2804.tse.server.util.error.errors.EntityNotFoundException
 import cmp2804.tse.server.util.matcher.MatchedDoctor
 import cmp2804.tse.server.util.matcher.SymptomMatcher
 import org.springframework.data.jpa.repository.JpaRepository
@@ -17,6 +19,10 @@ private const val MATCHING_DOCTOR_LIMIT = 15
 class DoctorService(
     private val doctorsRepository: DoctorsRepository
 ): BaseService<Doctor, Long> {
+
+    fun getDoctorByUser(user: User): Doctor {
+        return doctorsRepository.findByUser(user) ?: throw EntityNotFoundException("Doctor not found: ${user.username}")
+    }
 
     fun getDoctorsInRange(center: LatLong, rangeKm: Double): List<Doctor> {
         val doctors = doctorsRepository.findAll().filter { doctor ->
