@@ -6,4 +6,4 @@ package cmp2804.tse.server.util.error.errors
  *
  * @author Ben Soones
  */
-class EntityNotFoundException(message: String): Exception(message)
+class EntityNotFoundException(message: String? = null): Exception(message)

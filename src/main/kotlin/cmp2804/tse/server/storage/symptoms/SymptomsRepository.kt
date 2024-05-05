@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository
  * @param [Long] ID type
  * @author Ben Soones
  */
-interface SymptomsRepository : JpaRepository<Symptom, Long> {}
+interface SymptomsRepository : JpaRepository<Symptom, Long> {
+    fun findByName(name: String): Symptom?
+}

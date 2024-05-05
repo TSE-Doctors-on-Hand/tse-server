@@ -8,3 +8,6 @@ docker compose build
 
 # Re-start containers
 docker compose up -d
+
+# Inserting data into db
+docker compose exec postgres psql -U myuser -d mydatabase -f ./scripts/InsertSymptoms.sql

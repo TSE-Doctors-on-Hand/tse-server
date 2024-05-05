@@ -1,6 +1,7 @@
 package cmp2804.tse.server.util.error
 
 import cmp2804.tse.server.util.error.errors.EntityNotFoundException
+import cmp2804.tse.server.util.error.errors.UnauthorisedException
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -44,10 +45,19 @@ class GlobalExceptionHandler {
             )
     }
 
+    @ExceptionHandler(UnauthorisedException::class)
+    fun handleUnauthorisedException(e: UnauthorisedException): ResponseEntity<String> {
+        return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(
+                e.message ?: "You are not authorised to perform this action"
+            )
+    }
+
+
 
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ResponseEntity<String> {
-        e.printStackTrace()
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
             .body(
