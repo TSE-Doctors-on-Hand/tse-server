@@ -29,44 +29,44 @@ data class User(
     val id: Long? = null,
 
     @Column(unique = true, length = 50)
-    @Length(min = 3, max = 50)
-    @NotNull
+    @Length(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+    @NotNull(message = "Username cannot be null")
     var username: String,
 
     /**
      * A hashed and salted password
      */
-    @NotNull
+    @NotNull(message = "Password cannot be null")
     var password: String,
 
     /**
      * A user's first name
      */
     @Column(length = 50)
-    @Length(min = 2, max = 50)
-    @NotNull
+    @Length(min = 2, max = 50, message = "Forename must be between 2 and 50 characters")
+    @NotNull(message = "Forename cannot be null")
     var forename: String,
 
     /**
      * A user's last name
      */
     @Column(length = 50)
-    @Length(min = 2, max = 50)
-    @NotNull
+    @Length(min = 2, max = 50, message = "Surname must be between 2 and 50 characters")
+    @NotNull(message = "Surname cannot be null")
     var surname: String,
 
     /**
      * A user's date of both
      */
-    @PastTimestamp
-    @NotNull
+    @PastTimestamp(message = "Date of birth must be in the past")
+    @NotNull(message = "Date of birth cannot be null")
     var dateOfBirth: Long,
 
     /**
      * A user's biological sex
      * This is their sex at birth, which is relevant for medical questions
      */
-    @NotNull
+    @NotNull(message = "Sex cannot be null")
     var sex: SexEnum,
 
     /**
@@ -75,7 +75,7 @@ data class User(
      * preferred pronoun
      */
     @ElementCollection
-    @NotNull
+    @NotNull(message = "Pronouns cannot be null")
     var pronouns: MutableList<@Length(max = 17) String>,
 
     /**
@@ -83,15 +83,15 @@ data class User(
      * them of updates to their application and communication
      * with their doctor
      */
-    @Email
-    @NotNull
+    @Email(message = "Must be a valid email")
+    @NotNull(message = "Email cannot be null")
     var email: String,
 
     /**
      * A user's phone number, for use as an emergency
      * form of contact by a doctor, if required
      */
-    @Phone
+    @Phone(message = "Must be a valid phone number")
     var phone: String?,
 
     /**
@@ -103,20 +103,20 @@ data class User(
      * This will be the postal address for any physical forms of
      * communication
      */
-    @DecimalMin("-90.00")
-    @DecimalMax("90.00")
-    @NotNull
+    @DecimalMin("-90.00", message = "Location must be valid")
+    @DecimalMax("90.00", message = "Location must be valid")
+    @NotNull(message = "Location cannot be null")
     var homeLocationLat: Double,
 
-    @DecimalMin("-180.00")
-    @DecimalMax("180.00")
-    @NotNull
+    @DecimalMin("-180.00", message = "Location must be valid")
+    @DecimalMax("180.00", message = "Location must be valid")
+    @NotNull(message = "Location cannot be null")
     var homeLocationLong: Double,
 
     var nextOfKin: String,
 
     @ManyToMany(mappedBy = "users", cascade = [CascadeType.ALL])
-    @NotNull
+    @NotNull(message = "Roles cannot be null")
     var roles: Set<Role>
 
 ) {
