@@ -19,15 +19,16 @@ class AuthController(
     private val authService: AuthService,
 ) {
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     fun postSignUp(
         @RequestBody
-        signUpRequest: SignUpRequest
+        signUpRequest: SignUpRequest,
+        response: HttpServletResponse
     ): ResponseEntity<User> {
-        return authService.signUp(signUpRequest)
+        return authService.signUp(signUpRequest, response)
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     fun postSignIn(
         @RequestBody
         signInRequest: SignInRequest,
@@ -36,7 +37,7 @@ class AuthController(
         return authService.signIn(signInRequest, response)
     }
 
-    @PostMapping("/signout")
+    @PostMapping("/logout")
     fun postSignOut(
         response: HttpServletResponse
     ): ResponseEntity<Any> {

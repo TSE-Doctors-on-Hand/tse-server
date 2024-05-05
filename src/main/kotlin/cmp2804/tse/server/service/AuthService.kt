@@ -28,10 +28,12 @@ class AuthService(
     private val patientService: PatientService
 ) {
     @Transactional
-    fun signUp(signUpRequest: SignUpRequest): ResponseEntity<User> {
+    fun signUp(signUpRequest: SignUpRequest,  response: HttpServletResponse): ResponseEntity<User> {
         val hashedPassword = BCryptPasswordEncoder().encode(signUpRequest.password)
 
         val patient = patientService.createPatient(signUpRequest, hashedPassword)
+        val user = patient.user
+        setTokenResponse(user, response)
         return ResponseEntity.ok(patient.user)
     }
 
@@ -43,16 +45,7 @@ class AuthService(
             return ResponseEntity.badRequest().body(INVALID_PASSWORD_MESSAGE)
         }
 
-        val issuer = user.id.toString()
-
-        val jwt = Jwts.builder()
-            .setIssuer(issuer)
-            .setExpiration(Date(System.currentTimeMillis() + Duration.ofDays(1).toMillis())) // 24 hours
-            .signWith(SignatureAlgorithm.HS512, "secret").compact()
-
-        val cookie = Cookie(TOKEN_COOKIE_NAME, jwt)
-//        cookie.isHttpOnly = true
-        response.addCookie(cookie)
+        setTokenResponse(user, response)
 
         return ResponseEntity.ok(SUCCESS_MESSAGE)
     }
@@ -65,6 +58,17 @@ class AuthService(
         return ResponseEntity.ok(SUCCESS_MESSAGE)
     }
 
+    private fun setTokenResponse(user: User, response: HttpServletResponse) {
+        val issuer = user.id.toString()
+
+        val jwt = Jwts.builder()
+            .setIssuer(issuer)
+            .setExpiration(Date(System.currentTimeMillis() + Duration.ofDays(1).toMillis())) // 24 hours
+            .signWith(SignatureAlgorithm.HS512, "secret").compact()
+
+        val cookie = Cookie(TOKEN_COOKIE_NAME, jwt)
+        response.addCookie(cookie)
+    }
 
     fun getUser(token: String?): User? {
         try {
