@@ -5,6 +5,7 @@ import cmp2804.tse.server.storage.symptoms.Symptom
 import cmp2804.tse.server.storage.users.User
 import jakarta.persistence.*
 import jakarta.validation.Valid
+import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import org.hibernate.validator.constraints.Length
 
@@ -36,8 +37,8 @@ data class Doctor(
      * Example: "Infectious Diseases"
      */
     @Column(length = 256)
-    @Length(max = 256)
-    @NotNull
+    @Length(max = 256, message = "Speciality must be less than 256 characters")
+    @NotNull(message = "Speciality cannot be null")
     val speciality: String,
 
     /**
@@ -46,7 +47,7 @@ data class Doctor(
      * This can contain any information such as qualifications, experience, etc.
      */
     @Column(length = 4000)
-    @Length(max = 4000)
+    @Length(max = 4000, message = "About me section must be less than 4,000 characters")
     val aboutMe: String,
 
     /**
@@ -55,7 +56,7 @@ data class Doctor(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "user_id")
-    @NotNull
+    @NotNull(message = "User cannot be null")
     @Valid
     val user: User,
 
@@ -68,7 +69,8 @@ data class Doctor(
      * @see [Practice]
      */
     @ManyToMany(mappedBy = "doctors", cascade = [CascadeType.ALL])
-    @NotNull
+    @NotNull(message = "Practice cannot be null")
+    @NotEmpty(message = "Practice cannot be empty")
     val practices: MutableSet<@Valid Practice>,
 
     /**
@@ -81,7 +83,8 @@ data class Doctor(
      * @see [Doctor]
      */
     @ManyToMany(mappedBy = "doctors", cascade = [CascadeType.ALL])
-    @NotNull
+    @NotNull(message = "Symptoms cannot be null")
+    @NotEmpty(message = "Symptoms cannot be empty")
     val symptoms: MutableSet<@Valid Symptom>
 ) {
     constructor() : this(

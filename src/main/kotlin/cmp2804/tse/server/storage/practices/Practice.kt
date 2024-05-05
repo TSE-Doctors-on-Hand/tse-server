@@ -32,8 +32,8 @@ data class Practice(
      * This will appear on the search list
      */
     @Column(length = 1000)
-    @Length(max = 1000)
-    @NotNull
+    @Length(max = 1000, message = "Practice name must be less than 1,000 chars")
+    @NotNull(message = "Practice name cannot be null")
     val name: String,
 
     /**
@@ -42,14 +42,14 @@ data class Practice(
      * A Latitude and Longitude pair showing the GPS co-ordinates of the practice
      * This can be used with a maps API to get the location
      */
-    @DecimalMin("-90.00")
-    @DecimalMax("90.00")
-    @NotNull
+    @DecimalMin("-90.00", message = "Location must be valid")
+    @DecimalMax("90.00", message = "Location must be valid")
+    @NotNull(message = "Location cannot be null")
     val locationLat: Double,
 
-    @DecimalMin("-180.00")
-    @DecimalMax("180.00")
-    @NotNull
+    @DecimalMin("-180.00", message = "Location must be valid")
+    @DecimalMax("180.00", message = "Location must be valid")
+    @NotNull(message = "Location cannot be null")
     val locationLong: Double,
 
     /**
@@ -57,12 +57,12 @@ data class Practice(
      *
      * A text address, showing postcodes, street names, etc. for a user to view
      */
-    @NotNull
+    @NotNull(message = "Address cannot be null")
     val address: String,
 
     @ManyToMany
     @JoinColumn(name = "doctor_id")
-    @NotNull
+    @NotNull(message = "Doctors cannot be null")
     var doctors: Set<@Valid Doctor>,
 
 ) {

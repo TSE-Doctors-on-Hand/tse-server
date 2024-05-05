@@ -31,7 +31,7 @@ data class Patient(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "user_id")
-    @NotNull
+    @NotNull(message = "User cannot be null")
     @Valid
     val user: User,
 

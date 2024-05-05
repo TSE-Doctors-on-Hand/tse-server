@@ -27,12 +27,11 @@ data class Symptom(
      * E.g "Headache"
      */
     @Column(unique = true)
-    @NotNull
+    @NotNull(message = "Symptom cannot be null")
     val name: String,
 
     @ManyToMany
     @JoinColumn(name = "doctor_id")
-    @NotNull
     var doctors: Set<@Valid Doctor>
 ) {
 

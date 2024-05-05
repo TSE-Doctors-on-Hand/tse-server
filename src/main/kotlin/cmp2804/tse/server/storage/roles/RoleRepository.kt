@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository
  * @param [Long] ID type
  * @author Ben Soones
  */
-interface RoleRepository : JpaRepository<Role, Long> {}
+interface RoleRepository : JpaRepository<Role, Long> {
+    fun findByName(rolesEnum: RolesEnum): Role?
+}

@@ -20,12 +20,11 @@ class GlobalExceptionHandler {
      * Exception handler for invalid method arguments
      */
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleArgumentNotValidException(e: MethodArgumentNotValidException): ResponseEntity<String> {
+    fun handleArgumentNotValidException(e: MethodArgumentNotValidException): ResponseEntity<List<String>> {
         val errors = e.bindingResult
             ?.fieldErrors
-            ?.joinToString(", ") {
-                "${it.field}: ${it.defaultMessage}"
-            } ?: "Unknown error"
+            ?.map { "${it.field} ${it.defaultMessage}" }
+            ?: listOf("Unknown error")
 
         return ResponseEntity.badRequest().body(errors)
     }
@@ -47,7 +46,7 @@ class GlobalExceptionHandler {
 
 
     @ExceptionHandler(Exception::class)
-    fun handleException(e: Exception): ResponseEntity<String>  {
+    fun handleException(e: Exception): ResponseEntity<String> {
         e.printStackTrace()
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)

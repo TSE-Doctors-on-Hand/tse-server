@@ -1,6 +1,8 @@
 package cmp2804.tse.server.service
 
 import cmp2804.tse.server.service.base.BaseService
+import cmp2804.tse.server.storage.patients.Patient
+import cmp2804.tse.server.storage.roles.RolesEnum
 import cmp2804.tse.server.storage.users.SexEnum
 import cmp2804.tse.server.storage.users.User
 import cmp2804.tse.server.storage.users.UsersRepository
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(
     private val usersRepository: UsersRepository,
+    private val patientService: PatientService,
+    private val roleService: RoleService
 ) : BaseService<User, Long> {
 
     fun save(user: User): User {
@@ -42,8 +46,8 @@ class UserService(
     }
 
     fun createUser(signUpRequest: SignUpRequest, hashedPassword: String): User {
-        // TODO -> Validation
         val user = User(
+            id = null,
             username = signUpRequest.username,
             password = hashedPassword,
             forename = signUpRequest.forename,
@@ -56,9 +60,12 @@ class UserService(
             homeLocationLat = signUpRequest.homeLocationLat,
             homeLocationLong = signUpRequest.homeLocationLong,
             nextOfKin = signUpRequest.nextOfKin,
-            roles = setOf()
+            roles = setOf(
+                roleService.getRole(RolesEnum.PATIENT)!!
+            )
         )
         user.let { usersRepository.save(it) }
+        patientService.createPatient(user)
         return user
 
     }

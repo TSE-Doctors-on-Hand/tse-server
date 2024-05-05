@@ -25,7 +25,7 @@ const val TOKEN_COOKIE_NAME = "token"
 @Service
 class AuthService(
     private val userService: UserService,
-    ) {
+) {
     @Transactional
     fun signUp(signUpRequest: SignUpRequest): ResponseEntity<User> {
         val hashedPassword = BCryptPasswordEncoder().encode(signUpRequest.password)
@@ -78,12 +78,9 @@ class AuthService(
     }
 
     fun getUserFromRequest(request: HttpServletRequest): User? {
-        println("COOKIES: ${request.cookies}")
-
         val token = request.cookies.find { it.name == TOKEN_COOKIE_NAME }?.value ?: return null
         return getUser(token)
     }
-
 
 
 }

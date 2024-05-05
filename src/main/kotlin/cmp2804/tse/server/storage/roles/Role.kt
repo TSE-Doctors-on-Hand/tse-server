@@ -25,13 +25,12 @@ data class Role(
     val id: Long? = null,
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 7) // Patient - 7 chars
-    @NotNull
+    @Column(unique = true)
+    @NotNull(message = "Role name must not be null")
     val name: RolesEnum,
 
     @ManyToMany
     @JoinColumn(name = "user_id")
-    @NotNull
     var users: Set<@Valid User>
 ) {
     constructor() : this(

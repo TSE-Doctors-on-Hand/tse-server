@@ -31,7 +31,7 @@ data class Notification(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "user_id")
-    @NotNull
+    @NotNull(message = "User cannot be null")
     @Valid
     val user: User,
 
@@ -41,8 +41,8 @@ data class Notification(
      * This will be shown to the user
      */
     @Column(length = 1000)
-    @Length(max = 1000)
-    @NotNull
+    @Length(max = 1000, message = "Notification must be less than 1,000 characters")
+    @NotNull(message = "Notification text must not be null")
     val text: String,
 
     /**
@@ -53,7 +53,7 @@ data class Notification(
     /**
      * Whether the notificaiton has been seen or not
      */
-    @NotNull
+    @NotNull(message = "Seen must not be null")
     val seen: Boolean = false,
 
 

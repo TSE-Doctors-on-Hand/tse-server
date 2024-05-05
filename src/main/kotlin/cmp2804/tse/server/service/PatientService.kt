@@ -23,5 +23,14 @@ class PatientService(
         return patientsRepository.findByUser(user) ?: throw EntityNotFoundException("Patient not found: $username")
     }
 
+    fun createPatient(user: User): Patient {
+        val patient = Patient(
+            user = user
+        )
+        patient.let { patientsRepository.save(it) }
+        return patient
+    }
+
+
     override fun getRepository(): JpaRepository<Patient, Long> = patientsRepository
 }
