@@ -33,7 +33,7 @@ class AuthController(
         @RequestBody
         signInRequest: SignInRequest,
         response: HttpServletResponse
-    ): ResponseEntity<String> {
+    ): ResponseEntity<Any> {
         return authService.signIn(signInRequest, response)
     }
 
