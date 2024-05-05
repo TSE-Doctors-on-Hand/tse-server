@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(
     private val usersRepository: UsersRepository,
-    private val patientService: PatientService,
     private val roleService: RoleService
 ) : BaseService<User, Long> {
 
@@ -65,7 +64,6 @@ class UserService(
             )
         )
         user.let { usersRepository.save(it) }
-        patientService.createPatient(user)
         return user
 
     }

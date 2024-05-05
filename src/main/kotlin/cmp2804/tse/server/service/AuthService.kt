@@ -25,13 +25,14 @@ const val TOKEN_COOKIE_NAME = "token"
 @Service
 class AuthService(
     private val userService: UserService,
+    private val patientService: PatientService
 ) {
     @Transactional
     fun signUp(signUpRequest: SignUpRequest): ResponseEntity<User> {
         val hashedPassword = BCryptPasswordEncoder().encode(signUpRequest.password)
 
-        val user = userService.createUser(signUpRequest, hashedPassword)
-        return ResponseEntity.ok(user)
+        val patient = patientService.createPatient(signUpRequest, hashedPassword)
+        return ResponseEntity.ok(patient.user)
     }
 
     fun signIn(signInRequest: SignInRequest, response: HttpServletResponse): ResponseEntity<Any> {
