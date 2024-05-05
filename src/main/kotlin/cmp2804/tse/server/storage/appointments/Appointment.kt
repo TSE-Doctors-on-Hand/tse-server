@@ -5,6 +5,7 @@ import cmp2804.tse.server.storage.patients.Patient
 import cmp2804.tse.server.storage.practices.Practice
 import cmp2804.tse.server.storage.roles.RolesEnum
 import cmp2804.tse.server.storage.users.User
+import cmp2804.tse.server.storage.validators.NOT_NULL_MESSAGE
 import cmp2804.tse.server.storage.validators.futuretimestamp.FutureTimestamp
 import jakarta.persistence.*
 import jakarta.validation.Valid
@@ -40,7 +41,7 @@ data class Appointment(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "patient_id")
-    @NotNull
+    @NotNull(message = "Patient cannot be null")
     @Valid
     val patient: Patient,
 
@@ -53,7 +54,7 @@ data class Appointment(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "doctor_id")
-    @NotNull
+    @NotNull(message = "Doctor cannot be null")
     @Valid
     val doctor: Doctor,
 
@@ -61,7 +62,7 @@ data class Appointment(
      * Patient chosen list of available dates
      */
     @ElementCollection
-    var availableDates: MutableSet<@FutureTimestamp Long>,
+    var availableDates: MutableSet<@FutureTimestamp(message = "Each timestamp must be in the future") Long>,
 
     /**
      * * A Latitude and Longitude pair showing the GPS co-ordinates of the practice
@@ -78,12 +79,12 @@ data class Appointment(
      */
     @DecimalMin("-90.00")
     @DecimalMax("90.00")
-    @NotNull
+    @NotNull(message = "Home location cannot be null")
     val homeLocationLat: Double,
 
     @DecimalMin("-180.00")
     @DecimalMax("180.00")
-    @NotNull
+    @NotNull(message = "Home location cannot be null")
     val homeLocationLong: Double,
 
     /**
@@ -94,14 +95,14 @@ data class Appointment(
      *
      * **NOTE: THE RANGE IS IN MILES**
      */
-    @PositiveOrZero
-    @NotNull
+    @PositiveOrZero(message = "Range must be greater than 0 km")
+    @NotNull(message = "Range cannot be null")
     val range: Double,
 
     /**
      * Accessibility feature: Allow for home visits just like the NHS
      */
-    @NotNull
+    @NotNull(message = "Home visits option cannot be null")
     val homeVisits: Boolean,
 
     /**
@@ -113,22 +114,21 @@ data class Appointment(
      */
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "practice_id")
-    @NotNull
     @Valid
-    val appointmentLocation: Practice,
+    val appointmentLocation: Practice?,
 
     /**
      * Any special considerations such as accessibility or preferences
      * for religious or other reasons
      */
     @Column(length = 4000)
-    @Length(max=4000)
-    val considerations: String,
+    @Length(max = 4000, message = "Considerations must be less than 4000 characters")
+    val considerations: String?,
 
     /**
      * Chosen appointment date upon between the doctor and patient
      */
-    @FutureTimestamp
+    @FutureTimestamp("The appointment date must be in the future")
     var date: Long?,
 
     /**
@@ -136,8 +136,8 @@ data class Appointment(
      *
      * @see AppointmentStatus
      */
-    @Range(min = 0, max = 6)
-    @NotNull
+    @Range(min = 0, max = 6, message = "The status must be between 0 and 6")
+    @NotNull(message = "Status cannot be null")
     var status: Int,
 
     ) {
