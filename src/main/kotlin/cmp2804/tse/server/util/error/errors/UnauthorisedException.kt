@@ -9,4 +9,4 @@ import org.springframework.web.bind.annotation.ResponseStatus
  * @author Ben Soones
  */
 @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
-class UnauthorisedException(message: String): Exception(message)
+class UnauthorisedException(message: String? = null): Exception(message)

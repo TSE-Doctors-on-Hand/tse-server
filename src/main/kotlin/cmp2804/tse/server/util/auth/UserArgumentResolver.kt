@@ -2,6 +2,7 @@ package cmp2804.tse.server.util.auth
 
 import cmp2804.tse.server.service.AuthService
 import cmp2804.tse.server.storage.users.User
+import cmp2804.tse.server.util.error.errors.UnauthorisedException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.stereotype.Component
 import org.springframework.core.MethodParameter
@@ -27,6 +28,6 @@ class UserArgumentResolver(
         val request = webRequest.getNativeRequest(HttpServletRequest::class.java)
         val user = request?.let { authService.getUserFromRequest(it) }
         request?.setAttribute("user", user)
-        return request?.getAttribute("user") ?: throw IllegalStateException("User not found in request")
+        return request?.getAttribute("user") ?: throw UnauthorisedException()
     }
 }

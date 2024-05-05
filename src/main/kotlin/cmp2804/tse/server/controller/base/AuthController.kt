@@ -1,4 +1,4 @@
-package cmp2804.tse.server.controller
+package cmp2804.tse.server.controller.base
 
 import cmp2804.tse.server.service.AuthService
 import cmp2804.tse.server.storage.users.User

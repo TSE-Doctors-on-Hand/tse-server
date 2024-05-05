@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 class AppointmentController(
     private val appointmentService: AppointmentService,
 ) {
-    @GetMapping("/all/")
+    @GetMapping("/all")
     fun getAppointments(
         user: User
     ): ResponseEntity<List<Appointment>> {
