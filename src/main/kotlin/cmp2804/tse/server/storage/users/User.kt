@@ -1,14 +1,14 @@
 package cmp2804.tse.server.storage.users
 
 import cmp2804.tse.server.storage.roles.Role
-import cmp2804.tse.server.storage.validators.pasttimestamp.PastTimestamp
-import cmp2804.tse.server.storage.validators.phone.Phone
+import cmp2804.tse.server.storage.base.validators.phone.Phone
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import jakarta.persistence.*
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Past
 import org.hibernate.validator.constraints.Length
 import java.sql.Date
 
@@ -59,7 +59,8 @@ data class User(
     /**
      * A user's date of both
      */
-    //@PastTimestamp(message = "Date of birth must be in the past")
+
+    @Past(message = "Date of birth must be in the past")
     @NotNull(message = "Date of birth cannot be null")
     var dateOfBirth: Date,
 
