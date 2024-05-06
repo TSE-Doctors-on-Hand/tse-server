@@ -1,6 +1,6 @@
 package cmp2804.tse.server.storage.symptoms
 
-import cmp2804.tse.server.storage.doctors.Doctor
+import cmp2804.tse.server.storage.specialties.Speciality
 import jakarta.persistence.*
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
@@ -30,9 +30,8 @@ data class Symptom(
     @NotNull(message = "Symptom cannot be null")
     val name: String,
 
-    @ManyToMany
-    @JoinColumn(name = "doctor_id")
-    var doctors: Set<@Valid Doctor>
+    @ManyToMany(mappedBy = "symptoms")
+    var specialties: Set<@Valid Speciality>
 ) {
 
     constructor() : this(

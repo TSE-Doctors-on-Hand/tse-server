@@ -23,26 +23,29 @@ object SymptomMatcher {
         symptoms: Set<Symptom>,
         location: LatLong
     ): MatchedDoctor {
+        val matches = doctor.specialties.map { speciality ->
+            val doctorSymptoms = speciality.symptoms
+            val intersection = doctorSymptoms.intersect(symptoms)
+            val union = doctorSymptoms.union(symptoms)
 
-        val doctorSymptoms = doctor.symptoms
-        val intersection = doctorSymptoms.intersect(symptoms)
-        val union = doctorSymptoms.union(symptoms)
+            val similarity: Double = if (union.isEmpty()) {
+                100.00
+            } else {
+                (intersection.size.toDouble() / union.size.toDouble()) * 100
+            }
 
-        val similarity: Double = if (union.isEmpty()) {
-            100.00
-        } else {
-            (intersection.size.toDouble() / union.size.toDouble()) * 100
+            val distance = doctor.practices.map {
+                location.haversineDistance(it.latLong())
+            }.minOf { it }
+
+            MatchedDoctor(
+                doctor,
+                similarity,
+                distance
+            )
         }
 
-        val distance = doctor.practices.map {
-            location.haversineDistance(it.latLong())
-        }.minOf { it }
-
-        return MatchedDoctor(
-            doctor,
-            similarity,
-            distance
-        )
+        return matches.maxBy { it.similarity }
 
 
     }
