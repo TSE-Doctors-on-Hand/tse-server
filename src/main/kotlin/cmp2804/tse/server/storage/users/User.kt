@@ -10,6 +10,7 @@ import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotNull
 import org.hibernate.validator.constraints.Length
+import java.sql.Date
 
 const val USER_TABLE_NAME = "users"
 
@@ -60,7 +61,7 @@ data class User(
      */
     @PastTimestamp(message = "Date of birth must be in the past")
     @NotNull(message = "Date of birth cannot be null")
-    var dateOfBirth: Long,
+    var dateOfBirth: Date,
 
     /**
      * A user's biological sex
@@ -126,7 +127,7 @@ data class User(
         "",
         "",
         "",
-        0L,
+        Date(2000,1,1),
         SexEnum.MALE,
         mutableListOf(),
         "",
