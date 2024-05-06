@@ -24,7 +24,7 @@ class AuthController(
         @RequestBody
         signUpRequest: SignUpRequest,
         response: HttpServletResponse
-    ): ResponseEntity<User> {
+    ): ResponseEntity<String> {
         return authService.signUp(signUpRequest, response)
     }
 
