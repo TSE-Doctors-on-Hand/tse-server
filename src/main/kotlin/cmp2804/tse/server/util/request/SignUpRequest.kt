@@ -5,12 +5,13 @@ data class SignUpRequest(
     val password: String,
     val forename: String,
     val surname: String,
-    val dateOfBirth: Long,
+    val dateOfBirth: String,
     val sex: Int,
     val pronouns: MutableList<String>,
     val email: String,
     val phone: String?,
-    val homeLocationLat: Double,
-    val homeLocationLong: Double,
+    val postcode: String,
+//    val homeLocationLat: Double,
+//    val homeLocationLong: Double,
     val nextOfKin: String
     ) {}
