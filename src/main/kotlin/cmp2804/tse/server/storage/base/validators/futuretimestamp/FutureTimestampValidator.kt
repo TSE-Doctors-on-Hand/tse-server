@@ -1,4 +1,4 @@
-package cmp2804.tse.server.storage.validators.futuretimestamp
+package cmp2804.tse.server.storage.base.validators.futuretimestamp
 
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
