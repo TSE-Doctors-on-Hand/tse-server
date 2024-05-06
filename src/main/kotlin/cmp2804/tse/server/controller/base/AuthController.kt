@@ -25,7 +25,12 @@ class AuthController(
         signUpRequest: SignUpRequest,
         response: HttpServletResponse
     ): ResponseEntity<String> {
-        return authService.signUp(signUpRequest, response)
+        try {
+            return authService.signUp(signUpRequest, response)
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+        throw Exception("Failed to sign up")
     }
 
     @PostMapping("/login")
