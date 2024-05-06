@@ -1,4 +1,4 @@
-package cmp2804.tse.server.storage.validators.phone
+package cmp2804.tse.server.storage.base.validators.phone
 
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
