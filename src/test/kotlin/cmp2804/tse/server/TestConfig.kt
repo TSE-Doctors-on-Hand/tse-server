@@ -6,10 +6,12 @@ import cmp2804.tse.server.storage.patients.Patient
 import cmp2804.tse.server.storage.practices.Practice
 import cmp2804.tse.server.storage.roles.Role
 import cmp2804.tse.server.storage.roles.RolesEnum
+import cmp2804.tse.server.storage.specialties.Speciality
 import cmp2804.tse.server.storage.symptoms.Symptom
 import cmp2804.tse.server.storage.users.SexEnum
 import cmp2804.tse.server.storage.users.User
 import org.springframework.boot.test.context.TestConfiguration
+import java.sql.Date
 
 @TestConfiguration
 class TestMocks {
@@ -23,7 +25,7 @@ class TestMocks {
             "password",
             "forename",
             "surname",
-            1000L,
+            Date(2000,1,1),
             SexEnum.MALE,
             mutableListOf("he/him"),
             "test@example.com",
@@ -40,7 +42,7 @@ class TestMocks {
             "password",
             "forename",
             "surname",
-            1000L,
+            Date(2000,1,1),
             SexEnum.MALE,
             mutableListOf("he/him"),
             "doctor@example.com",
@@ -70,11 +72,10 @@ class TestMocks {
         )
         val DOCTOR: Doctor = Doctor(
             1L,
-            "Infectious Diseases",
+            mutableSetOf(), // TODO -> Add specialty
             "Example about me section",
             DOCTOR_USER,
-            mutableSetOf(PRACTICE),
-            mutableSetOf(SYMPTOM)
+            mutableSetOf(PRACTICE)
         )
 
         val APPOINTMENT: Appointment = Appointment(

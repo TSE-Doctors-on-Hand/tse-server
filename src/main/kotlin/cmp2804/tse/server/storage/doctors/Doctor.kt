@@ -37,7 +37,7 @@ data class Doctor(
      * Example: "Infectious Diseases"
      */
     @ManyToMany
-    @NotNull(message = "Speciality cannot be null")
+    @NotNull(message = "Speciality cannot be null") // TODO -> Not empty check
     val specialties: MutableSet<@Valid Speciality>,
 
     /**
