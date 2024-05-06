@@ -59,7 +59,7 @@ data class User(
     /**
      * A user's date of both
      */
-    @PastTimestamp(message = "Date of birth must be in the past")
+    //@PastTimestamp(message = "Date of birth must be in the past")
     @NotNull(message = "Date of birth cannot be null")
     var dateOfBirth: Date,
 
