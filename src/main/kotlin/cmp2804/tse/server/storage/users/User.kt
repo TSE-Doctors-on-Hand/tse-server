@@ -1,7 +1,7 @@
 package cmp2804.tse.server.storage.users
 
-import cmp2804.tse.server.storage.roles.Role
 import cmp2804.tse.server.storage.base.validators.phone.Phone
+import cmp2804.tse.server.storage.roles.RolesEnum
 import cmp2804.tse.server.util.LatLong
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import jakarta.persistence.*
@@ -118,9 +118,10 @@ data class User(
 
     var nextOfKin: String,
 
-    @ManyToMany(mappedBy = "users", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+
+    @ElementCollection
     @NotNull(message = "Roles cannot be null")
-    var roles: Set<Role>
+    var roles: MutableSet<RolesEnum>
 
 ) {
     constructor() : this(
@@ -137,15 +138,15 @@ data class User(
         0.00,
         0.00,
         "",
-        setOf(),
+        mutableSetOf(),
     )
 
     fun comparePassword(password: String): Boolean {
         return BCryptPasswordEncoder().matches(password, this.password)
     }
 
-    fun getHighestRole(): Role? {
-        return this.roles.maxByOrNull { it.name.ordinal }
+    fun getHighestRole(): RolesEnum? {
+        return this.roles.maxByOrNull { it.ordinal }
     }
 
     fun latLong(): LatLong = LatLong(this.homeLocationLat, this.homeLocationLong)
