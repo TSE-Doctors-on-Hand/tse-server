@@ -13,7 +13,7 @@ import cmp2804.tse.server.util.matcher.SymptomMatcher
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Service
 
-private const val MATCHING_DOCTOR_LIMIT = 15
+const val MATCHING_DOCTOR_LIMIT = 15
 
 @Service
 class DoctorService(
