@@ -1,14 +1,15 @@
 package cmp2804.tse.server.storage.users
 
-import cmp2804.tse.server.storage.roles.Role
-import cmp2804.tse.server.storage.validators.pasttimestamp.PastTimestamp
-import cmp2804.tse.server.storage.validators.phone.Phone
+import cmp2804.tse.server.storage.base.validators.phone.Phone
+import cmp2804.tse.server.storage.roles.RolesEnum
+import cmp2804.tse.server.util.LatLong
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import jakarta.persistence.*
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Past
 import org.hibernate.validator.constraints.Length
 import java.sql.Date
 
@@ -59,7 +60,8 @@ data class User(
     /**
      * A user's date of both
      */
-    //@PastTimestamp(message = "Date of birth must be in the past")
+
+    @Past(message = "Date of birth must be in the past")
     @NotNull(message = "Date of birth cannot be null")
     var dateOfBirth: Date,
 
@@ -75,7 +77,7 @@ data class User(
      * doctors and patients. The first pronoun will be the
      * preferred pronoun
      */
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @NotNull(message = "Pronouns cannot be null")
     var pronouns: MutableList<@Length(max = 17) String>,
 
@@ -116,9 +118,10 @@ data class User(
 
     var nextOfKin: String,
 
-    @ManyToMany(mappedBy = "users", cascade = [CascadeType.ALL])
+
+    @ElementCollection
     @NotNull(message = "Roles cannot be null")
-    var roles: Set<Role>
+    var roles: MutableSet<RolesEnum>
 
 ) {
     constructor() : this(
@@ -135,14 +138,17 @@ data class User(
         0.00,
         0.00,
         "",
-        setOf(),
+        mutableSetOf(),
     )
 
     fun comparePassword(password: String): Boolean {
         return BCryptPasswordEncoder().matches(password, this.password)
     }
 
-    fun getHighestRole(): Role? {
-        return this.roles.maxByOrNull { it.name.ordinal }
+    fun getHighestRole(): RolesEnum? {
+        return this.roles.maxByOrNull { it.ordinal }
     }
+
+    fun latLong(): LatLong = LatLong(this.homeLocationLat, this.homeLocationLong)
+
 }

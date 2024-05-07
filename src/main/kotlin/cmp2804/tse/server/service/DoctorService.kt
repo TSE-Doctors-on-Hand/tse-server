@@ -14,11 +14,12 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
-private const val MATCHING_DOCTOR_LIMIT = 15
+const val MATCHING_DOCTOR_LIMIT = 15
 
 @Service
 class DoctorService(
-    private val doctorsRepository: DoctorsRepository
+    private val doctorsRepository: DoctorsRepository,
+    private val symptomService: SymptomService
 ): BaseService<Doctor, Long> {
 
     fun getDoctorByUser(user: User): Doctor {
@@ -37,11 +38,12 @@ class DoctorService(
 
     fun getMatchingDoctors(
         location: LatLong,
-        symptoms: Set<Symptom>,
+        symptomIds: Set<Long>,
         rangeKm: Double = 5.00,
         limit: Int = MATCHING_DOCTOR_LIMIT
     ): List<MatchedDoctor> {
         val doctors = getDoctorsInRange(location, rangeKm).toSet()
+        val symptoms = symptomService.getSymptomsByIds(symptomIds)
 
         return SymptomMatcher.matchDoctors(doctors, symptoms, location)
     }

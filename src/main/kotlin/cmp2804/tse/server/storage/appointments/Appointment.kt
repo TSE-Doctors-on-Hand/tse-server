@@ -5,7 +5,7 @@ import cmp2804.tse.server.storage.patients.Patient
 import cmp2804.tse.server.storage.practices.Practice
 import cmp2804.tse.server.storage.roles.RolesEnum
 import cmp2804.tse.server.storage.users.User
-import cmp2804.tse.server.storage.validators.futuretimestamp.FutureTimestamp
+import cmp2804.tse.server.storage.base.validators.futuretimestamp.FutureTimestamp
 import jakarta.persistence.*
 import jakarta.validation.Valid
 import jakarta.validation.constraints.DecimalMax

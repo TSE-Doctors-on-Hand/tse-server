@@ -1,7 +1,7 @@
 package cmp2804.tse.server.storage.doctors
 
 import cmp2804.tse.server.storage.practices.Practice
-import cmp2804.tse.server.storage.symptoms.Symptom
+import cmp2804.tse.server.storage.specialties.Speciality
 import cmp2804.tse.server.storage.users.User
 import jakarta.persistence.*
 import jakarta.validation.Valid
@@ -36,17 +36,10 @@ data class Doctor(
      *
      * Example: "Infectious Diseases"
      */
-<<<<<<< Updated upstream
-    @Column(length = 256)
-    @Length(max = 256, message = "Speciality must be less than 256 characters")
-    @NotNull(message = "Speciality cannot be null")
-    val speciality: String,
-=======
     @ManyToMany
     @NotNull(message = "Speciality cannot be null")
     @NotEmpty(message = "A doctor must have at least one speciality!")
     val specialties: MutableSet<@Valid Speciality>,
->>>>>>> Stashed changes
 
     /**
      * An about me of the doctor
@@ -79,27 +72,12 @@ data class Doctor(
     @NotNull(message = "Practice cannot be null")
     @NotEmpty(message = "Practice cannot be empty")
     val practices: MutableSet<@Valid Practice>,
-
-    /**
-     * List of symptoms the doctor can treat for
-     *
-     * This is used in the matching process, where symptoms are matched up
-     * to the doctor who has the highest support rating for them
-     *
-     * @see [Symptom]
-     * @see [Doctor]
-     */
-    @ManyToMany(mappedBy = "doctors", cascade = [CascadeType.ALL])
-    @NotNull(message = "Symptoms cannot be null")
-    @NotEmpty(message = "Symptoms cannot be empty")
-    val symptoms: MutableSet<@Valid Symptom>
 ) {
     constructor() : this(
         null,
-        "",
+        mutableSetOf(),
         "",
         User(),
         mutableSetOf(),
-        mutableSetOf()
     )
 }
