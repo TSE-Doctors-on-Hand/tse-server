@@ -77,7 +77,7 @@ data class User(
      * doctors and patients. The first pronoun will be the
      * preferred pronoun
      */
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @NotNull(message = "Pronouns cannot be null")
     var pronouns: MutableList<@Length(max = 17) String>,
 
@@ -118,7 +118,7 @@ data class User(
 
     var nextOfKin: String,
 
-    @ManyToMany(mappedBy = "users", cascade = [CascadeType.ALL])
+    @ManyToMany(mappedBy = "users", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @NotNull(message = "Roles cannot be null")
     var roles: Set<Role>
 
