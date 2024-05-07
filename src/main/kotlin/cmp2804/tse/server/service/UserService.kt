@@ -6,6 +6,7 @@ import cmp2804.tse.server.storage.roles.RolesEnum
 import cmp2804.tse.server.storage.users.SexEnum
 import cmp2804.tse.server.storage.users.User
 import cmp2804.tse.server.storage.users.UsersRepository
+import cmp2804.tse.server.util.LatLong
 import cmp2804.tse.server.util.date.DateUtil
 import cmp2804.tse.server.util.error.errors.EntityNotFoundException
 import cmp2804.tse.server.util.request.SignUpRequest
@@ -64,9 +65,7 @@ class UserService(
     fun createUser(signUpRequest: SignUpRequest, hashedPassword: String): User {
 
         // TODO -> Turn postcode into lat long
-        val postcode = signUpRequest.postcode
-        val lat = 0.0
-        val long = 0.0
+        val latLong = LatLong.fromPostcode(signUpRequest.postcode)
 
         val user = User(
             id = null,
@@ -79,8 +78,9 @@ class UserService(
             pronouns = signUpRequest.pronouns,
             email = signUpRequest.email,
             phone = signUpRequest.phone,
-            homeLocationLat = lat,
-            homeLocationLong = long,
+            homeLocationLat = latLong.latitude,
+            homeLocationLong = latLong.longitude,
+            postcode = signUpRequest.postcode,
             nextOfKin = signUpRequest.nextOfKin,
             roles = mutableSetOf(RolesEnum.PATIENT)
         )

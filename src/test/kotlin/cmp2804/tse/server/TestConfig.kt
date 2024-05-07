@@ -28,6 +28,7 @@ class TestMocks {
             "07000000000",
             0.0,
             0.0,
+            null,
             "Next of kin",
             mutableSetOf(RolesEnum.PATIENT)
         )
@@ -45,6 +46,7 @@ class TestMocks {
             "07000000001",
             0.0,
             0.0,
+            null,
             "Next of kin",
             mutableSetOf(RolesEnum.DOCTOR)
         )

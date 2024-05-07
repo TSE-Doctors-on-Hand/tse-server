@@ -116,6 +116,8 @@ data class User(
     @NotNull(message = "Location cannot be null")
     var homeLocationLong: Double,
 
+    var postcode: String?,
+
     var nextOfKin: String,
 
 
@@ -130,13 +132,14 @@ data class User(
         "",
         "",
         "",
-        Date(2000,1,1),
+        Date(2000, 1, 1),
         SexEnum.MALE,
         mutableListOf(),
         "",
         "",
         0.00,
         0.00,
+        null,
         "",
         mutableSetOf(),
     )
@@ -147,6 +150,14 @@ data class User(
 
     fun getHighestRole(): RolesEnum? {
         return this.roles.maxByOrNull { it.ordinal }
+    }
+
+    fun isDoctor(): Boolean {
+        return this.roles.contains(RolesEnum.DOCTOR)
+    }
+
+    fun isPatient(): Boolean {
+        return this.roles.contains(RolesEnum.PATIENT)
     }
 
     fun latLong(): LatLong = LatLong(this.homeLocationLat, this.homeLocationLong)

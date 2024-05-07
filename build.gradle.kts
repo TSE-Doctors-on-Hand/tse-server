@@ -37,6 +37,7 @@ dependencies {
 	implementation("jakarta.validation:jakarta.validation-api:3.0.2")
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+	implementation("com.squareup.okhttp3:okhttp:4.12.0")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("com.ninja-squad:springmockk:4.0.2")

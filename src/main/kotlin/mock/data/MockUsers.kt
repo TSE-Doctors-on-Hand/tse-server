@@ -18,6 +18,7 @@ val USER_BARRY = User(
     "07000000000",
     51.41142516664304,
     -0.30055887976455625,
+    null,
     "Sandra",
     mutableSetOf(RolesEnum.PATIENT),
 )
@@ -34,6 +35,7 @@ val USER_VINCENT = User(
     "07000000001",
     51.470009190766746,
     4.661027886598867,
+    null,
     "Amy Pond",
     mutableSetOf(RolesEnum.PATIENT),
 )
@@ -53,6 +55,7 @@ val USER_CHARLIE = User(
     "07000000003",
     53.22994562194274,
     -0.5476375217330632,
+    null,
     "Johnny",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -70,6 +73,7 @@ val USER_OLIVIA = User(
     "07000000004",
     53.4502932819472,
     -0.11234567123456,
+    null,
     "David Johnson",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -87,6 +91,7 @@ val USER_JACK = User(
     "07000000005",
     52.7603821928473,
     -0.22345678234567,
+    null,
     "Emma Wilson",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -104,6 +109,7 @@ val USER_AMELIA = User(
     "07000000006",
     51.8904732918473,
     -0.33456789345678,
+    null,
     "Michael Brown",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -121,6 +127,7 @@ val USER_GEORGE = User(
     "07000000007",
     53.7810928347591,
     -0.44567893456789,
+    null,
     "Sophie Taylor",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -138,6 +145,7 @@ val USER_EMILY = User(
     "07000000008",
     52.8904728391023,
     -0.55678934567890,
+    null,
     "Benjamin White",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -155,6 +163,7 @@ val USER_WILLIAM = User(
     "07000000009",
     51.7819283475910,
     -0.66789345678901,
+    null,
     "Chloe Evans",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -172,6 +181,7 @@ val USER_LILY = User(
     "07000000010",
     53.7810928347591,
     -0.77893456789012,
+    null,
     "Liam Walker",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -189,6 +199,7 @@ val USER_HENRY = User(
     "07000000011",
     52.6678934567890,
     -0.88934567890123,
+    null,
     "Jessica Harris",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -207,6 +218,7 @@ val USER_CHLOE = User(
     "07000000012",
     53.5567893456789,
     -1.0012345678901,
+    null,
     "Daniel Clark",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -224,6 +236,7 @@ val USER_DANIEL = User(
     "07000000013",
     51.2234567823456,
     -0.1123456712345,
+    null,
     "Grace Lewis",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -241,6 +254,7 @@ val USER_ISABELLA = User(
     "07000000014",
     52.4567893456789,
     -1.2234567823456,
+    null,
     "David Johnson",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -258,6 +272,7 @@ val USER_JOSEPH = User(
     "07000000015",
     53.6678934567890,
     -0.3345678934567,
+    null,
     "Emma Wilson",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -275,6 +290,7 @@ val USER_SOPHIE = User(
     "07000000016",
     51.8910348723456,
     -0.4456789345678,
+    null,
     "Michael Brown",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -292,6 +308,7 @@ val USER_HARRY = User(
     "07000000017",
     52.9810923475901,
     -0.5567893456789,
+    null,
     "Sophie Taylor",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -309,6 +326,7 @@ val USER_GRACE = User(
     "07000000018",
     51.2234567823456,
     -0.6678934567890,
+    null,
     "Benjamin White",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -326,6 +344,7 @@ val USER_JAMES = User(
     "07000000019",
     52.3456789234567,
     -0.7789345678901,
+    null,
     "Chloe Evans",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -343,6 +362,7 @@ val USER_MIA = User(
     "07000000020",
     53.8904723456789,
     -0.8893456789012,
+    null,
     "Jessica Harris",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -360,6 +380,7 @@ val USER_JOSEF = User(
     "07000000021",
     51.5678934567890,
     -1.0012345678901,
+    null,
     "Daniel Clark",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -376,6 +397,7 @@ val USER_RUBY = User(
     "07000000022",
     52.4578129345679,
     -0.3345678934567,
+    null,
     "Grace Lewis",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -393,6 +415,7 @@ val USER_CHARLY = User(
     "07000000023",
     51.6789234567890,
     -0.4456789345678,
+    null,
     "Emma Wilson",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -410,6 +433,7 @@ val USER_POPPY = User(
     "07000000024",
     53.7890123456789,
     -0.5567893456789,
+    null,
     "Michael Brown",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -427,6 +451,7 @@ val USER_HAROLD = User(
     "07000000025",
     52.3456789234567,
     -0.6678934567890,
+    null,
     "Liam Walker",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -444,6 +469,7 @@ val USER_EVIE = User(
     "07000000026",
     51.2234567823456,
     -0.7789345678901,
+    null,
     "Jessica Harris",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -461,6 +487,7 @@ val USER_LEO = User(
     "07000000027",
     53.1234567823456,
     -0.8893456789012,
+    null,
     "Benjamin White",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -478,6 +505,7 @@ val USER_DAISY = User(
     "07000000028",
     52.5678934567890,
     -1.0012345678901,
+    null,
     "Grace Lewis",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -495,6 +523,7 @@ val USER_OSCAR = User(
     "07000000029",
     53.8904723456789,
     -1.1123456712345,
+    null,
     "David Johnson",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -512,6 +541,7 @@ val USER_LEAH = User(
     "07000000030",
     52.8910348723456,
     -0.2234567823456,
+    null,
     "Emma Wilson",
     mutableSetOf(RolesEnum.DOCTOR),
 )
@@ -529,6 +559,7 @@ val USER_OLIVER = User(
     "07000000031",
     51.7819283475910,
     -0.3345678934567,
+    null,
     "Michael Brown",
     mutableSetOf(RolesEnum.DOCTOR),
 )

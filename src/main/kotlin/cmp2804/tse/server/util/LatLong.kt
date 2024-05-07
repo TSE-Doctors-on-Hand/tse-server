@@ -2,7 +2,14 @@ package cmp2804.tse.server.util
 
 import cmp2804.tse.server.util.matcher.CartesianPoint
 import cmp2804.tse.server.util.matcher.dotProduct
+import com.nimbusds.jose.shaded.gson.JsonParser
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.lang.NullPointerException
 import kotlin.math.*
+
+private val API_ADDRESS = "https://maps.googleapis.com/maps/api/geocode/json?address=%p&key=%a"
+private const val GOOGLE_MAPS_API_KEY = "AIzaSyAy_xu3NevkXxJVqgKztP5u1B3qmctYaHY"
 
 // https://imagine.gsfc.nasa.gov/features/cosmic/earth_info.html#:~:text=Note%3A%20The%20Earth%20is%20almost,the%20polar%20and%20equatorial%20values.
 // Average of both values to make perfect sphere
@@ -42,5 +49,46 @@ data class LatLong(
         val a = sin(dLat / 2).pow(2) + cos(lat1) * cos(lat2) * sin(dLon / 2).pow(2)
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         return EARTH_RADIUS_KM * c
+    }
+
+
+    companion object {
+        fun fromPostcode(postcode: String): LatLong {
+
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url(
+                    API_ADDRESS.format(API_ADDRESS, GOOGLE_MAPS_API_KEY)
+                )
+                .build()
+
+            // TODO -> Code cleanup
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    // TODO -> Logging
+                    return LatLong(0.0, 0.0)
+                }
+
+                try {
+                    val json = JsonParser.parseString(response.body?.string())
+                    val results = json.asJsonObject["results"].asJsonArray
+
+                    if (results.size() == 0) {
+                        // TODO -> Logging
+                        return LatLong(0.0, 0.0)
+                    }
+                    val location = results[0].asJsonObject["geometry"].asJsonObject["location"].asJsonObject
+
+                    return LatLong(
+                        location["lat"]?.asDouble ?: 0.0,
+                        location["lat"]?.asDouble ?: 0.0,
+                    )
+                } catch (e: NullPointerException) {
+                    // TODO -> Logging
+                    return LatLong(0.0, 0.0)
+                }
+            }
+
+        }
     }
 }
