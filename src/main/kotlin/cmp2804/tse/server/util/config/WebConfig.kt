@@ -18,7 +18,7 @@ class WebConfig: WebMvcConfigurer {
                 "http://localhost:4200"
             )
             .allowedMethods("GET", "POST", "PUT", "DELETE")
-            .allowedHeaders("Content-Type", "Authorization") // Allow necessary headers
+            .allowedHeaders("Content-Type", "Authorization", "Access-Control-Allow-Origin") // Allow necessary headers
             .allowCredentials(true)
     }
 
