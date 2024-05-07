@@ -120,7 +120,7 @@ val SYMPTOMS = listOf(
     "Eye redness",
     "Eye strain",
     "Eyelid twitching",
-    "Exaustion"
+    "Exaustion",
     "Facial flushing",
     "Facial swelling",
     "Fainting (syncope)",
@@ -236,7 +236,7 @@ val SYMPTOMS = listOf(
     "Oral ulcers",
     "Orthostatic hypotension",
     "Painful intercourse",
-    "Painful menstruation
+    "Painful menstruation",
     "Painful urination",
     "Pale skin",
     "Pale stools",
