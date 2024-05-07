@@ -23,7 +23,7 @@ class AuthenticationFilter(private val authService: AuthService) : Filter {
         chain: FilterChain
     ) {
         if (request is HttpServletRequest) {
-            val token = request.cookies?.firstOrNull { it.name == TOKEN_COOKIE_NAME }?.value
+            val token = request.getHeader("Token")
             val user = authService.getUser(token)
 
             val isProtectedEndpoint = PROTECTED_ENDPOINTS.any { endpoint ->
