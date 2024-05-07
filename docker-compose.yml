@@ -12,15 +12,6 @@ services:
       - '5432:5432'
     networks:
       - tse-backend-network
-  rabbitmq:
-    image: 'rabbitmq:latest'
-    environment:
-      - 'RABBITMQ_DEFAULT_PASS=secret'
-      - 'RABBITMQ_DEFAULT_USER=myuser'
-    ports:
-      - '5672'
-    networks:
-      - tse-backend-network
 
     # TSE Spring Applications
   tse-server:

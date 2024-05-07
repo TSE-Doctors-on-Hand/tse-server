@@ -30,6 +30,7 @@ class UserController(
         @PathVariable(value = "id")
         userId: Long
     ): ResponseEntity<User> {
+        // TODO -> Ensure only right users can access this
         return ResponseUtils.getEntryResponseById(userService, userId)
     }
 

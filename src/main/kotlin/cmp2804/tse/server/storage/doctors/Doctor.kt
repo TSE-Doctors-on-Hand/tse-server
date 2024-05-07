@@ -36,10 +36,17 @@ data class Doctor(
      *
      * Example: "Infectious Diseases"
      */
+<<<<<<< Updated upstream
     @Column(length = 256)
     @Length(max = 256, message = "Speciality must be less than 256 characters")
     @NotNull(message = "Speciality cannot be null")
     val speciality: String,
+=======
+    @ManyToMany
+    @NotNull(message = "Speciality cannot be null")
+    @NotEmpty(message = "A doctor must have at least one speciality!")
+    val specialties: MutableSet<@Valid Speciality>,
+>>>>>>> Stashed changes
 
     /**
      * An about me of the doctor

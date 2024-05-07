@@ -22,7 +22,7 @@ class AppointmentService(
     fun getAppointments(user: User): List<Appointment> {
         val role = user.getHighestRole() ?: throw EntityNotFoundException("User does not have a role.")
 
-        val appointments: List<Appointment> = when (role.name) {
+        val appointments: List<Appointment> = when (role) {
             RolesEnum.PATIENT -> {
                 val patient = patientService.getPatientByUser(user)
                 appointmentRepository.findByPatient(patient)

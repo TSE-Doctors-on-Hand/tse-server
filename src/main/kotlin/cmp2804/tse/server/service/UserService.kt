@@ -10,6 +10,7 @@ import cmp2804.tse.server.util.date.DateUtil
 import cmp2804.tse.server.util.error.errors.EntityNotFoundException
 import cmp2804.tse.server.util.request.SignUpRequest
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.sql.Date
 import java.time.Instant
@@ -18,11 +19,23 @@ import java.time.LocalDate
 @Service
 class UserService(
     private val usersRepository: UsersRepository,
-    private val roleService: RoleService
 ) : BaseService<User, Long> {
 
     fun save(user: User): User {
         return usersRepository.save(user)
+    }
+
+    fun insertUsers(users: List<User>): Boolean {
+        return try {
+            users.forEach { user ->
+                if (usersRepository.findByUsername(user.username) != null) return@forEach
+                user.let { usersRepository.save(it) }
+            }
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
     fun deleteUser(user: User): Boolean {
@@ -69,9 +82,7 @@ class UserService(
             homeLocationLat = lat,
             homeLocationLong = long,
             nextOfKin = signUpRequest.nextOfKin,
-            roles = setOf(
-                roleService.getRole(RolesEnum.PATIENT)!!
-            )
+            roles = mutableSetOf(RolesEnum.PATIENT)
         )
         user.let { usersRepository.save(it) }
         return user

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity
 object ResponseUtils {
 
     // TODO -> Javadoc
-    fun <T> getEntryResponseById(service: BaseService<T, Long>, id: Long): ResponseEntity<T> {
+    fun <T : Any> getEntryResponseById(service: BaseService<T, Long>, id: Long): ResponseEntity<T> {
         return service.getRepository().findById(id).map { ResponseEntity.ok(it) }
             .orElse(ResponseEntity.notFound().build())
     }

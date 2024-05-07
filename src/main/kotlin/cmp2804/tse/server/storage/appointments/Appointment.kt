@@ -171,7 +171,7 @@ data class Appointment(
     }
 
     fun hasAdminPermission(user: User): Boolean {
-        return user.getHighestRole()?.name == RolesEnum.ADMIN
+        return user.getHighestRole() == RolesEnum.ADMIN
     }
 
 }

@@ -34,6 +34,18 @@ class PatientService(
         return patient
     }
 
+    fun insertPatients(patients: List<Patient>): Boolean {
+        return try {
+            patients.forEach { patient ->
+                if (patientsRepository.findByUser(patient.user) != null) return@forEach
+                patient.let { patientsRepository.save(it) }
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
 
     override fun getRepository(): JpaRepository<Patient, Long> = patientsRepository
 }

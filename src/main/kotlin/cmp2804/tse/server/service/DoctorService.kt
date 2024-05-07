@@ -11,6 +11,7 @@ import cmp2804.tse.server.util.error.errors.EntityNotFoundException
 import cmp2804.tse.server.util.matcher.MatchedDoctor
 import cmp2804.tse.server.util.matcher.SymptomMatcher
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 private const val MATCHING_DOCTOR_LIMIT = 15
@@ -44,6 +45,19 @@ class DoctorService(
 
         return SymptomMatcher.matchDoctors(doctors, symptoms, location)
     }
+
+    fun insertDoctors(doctors: List<Doctor>): Boolean {
+        return try {
+            doctors.forEach { doctor ->
+                if (doctorsRepository.findByUser(doctor.user) != null) return@forEach
+                doctor.let { doctorsRepository.save(it) }
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
 
     override fun getRepository(): JpaRepository<Doctor, Long> = doctorsRepository
 }
