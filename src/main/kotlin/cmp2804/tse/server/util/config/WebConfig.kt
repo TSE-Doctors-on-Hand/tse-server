@@ -1,6 +1,5 @@
 package cmp2804.tse.server.util.config
 
-import cmp2804.tse.server.util.auth.UserArgumentResolver
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.CorsRegistry
@@ -9,9 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 @EnableWebMvc
-class WebConfig(
-    private val userArgumentResolver: UserArgumentResolver
-): WebMvcConfigurer {
+class WebConfig: WebMvcConfigurer {
 
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
@@ -27,6 +24,6 @@ class WebConfig(
 
 
     override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
-        resolvers.add(userArgumentResolver)
+
     }
 }
