@@ -16,6 +16,12 @@ class SymptomService(
         return symptomsRepository.findAll()
     }
 
+    fun getSymptomsByIds(ids: Set<Long>): Set<Symptom> {
+        return getAllSymptoms().filter {
+            ids.contains(it.id )
+        }.toSet()
+    }
+
     fun insertAllSymptoms(): Boolean {
         try {
             SYMPTOMS.forEach {symptom ->

@@ -2,6 +2,7 @@ package cmp2804.tse.server.storage.users
 
 import cmp2804.tse.server.storage.roles.Role
 import cmp2804.tse.server.storage.base.validators.phone.Phone
+import cmp2804.tse.server.util.LatLong
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import jakarta.persistence.*
 import jakarta.validation.constraints.DecimalMax
@@ -146,4 +147,7 @@ data class User(
     fun getHighestRole(): Role? {
         return this.roles.maxByOrNull { it.name.ordinal }
     }
+
+    fun latLong(): LatLong = LatLong(this.homeLocationLat, this.homeLocationLong)
+
 }
