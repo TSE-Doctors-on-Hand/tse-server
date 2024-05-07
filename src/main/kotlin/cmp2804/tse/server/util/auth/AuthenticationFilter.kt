@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component
 class AuthenticationFilter(private val authService: AuthService) : Filter {
 
     private val PROTECTED_ENDPOINTS = listOf(
-        "/api/appointment/*",
-        "/api/doctor/*",
-        "/api/user/*"
+        "/api/appointment/",
+        "/api/doctor/",
+        "/api/user/"
     )
 
     override fun doFilter(
