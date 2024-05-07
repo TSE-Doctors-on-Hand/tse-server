@@ -31,7 +31,7 @@ class DoctorController(private val doctorService: DoctorService) {
 
         val matchedDoctors = doctorService.getMatchingDoctors(
             location,
-            doctorSearchDTO.symptomIds,
+            doctorSearchDTO.symptoms,
             doctorSearchDTO.range.toDouble(),
             doctorSearchDTO.limit
         )
