@@ -60,7 +60,7 @@ class UserController(
         if (newUser.id != user.id) {
             return ResponseEntity.badRequest().body(UNAUTHORIZED_MESSAGE)
         }
-        val responseUser = userService.save(newUser.toUser())
+        val responseUser = userService.save(userService.getUserFromDTO(newUser))
         return ResponseEntity.ok(UserDTO.fromUser(responseUser))
     }
 

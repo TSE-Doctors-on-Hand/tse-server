@@ -1,5 +1,6 @@
 package cmp2804.tse.server.service
 
+import cmp2804.tse.server.dto.UserDTO
 import cmp2804.tse.server.service.base.BaseService
 import cmp2804.tse.server.storage.patients.Patient
 import cmp2804.tse.server.storage.roles.RolesEnum
@@ -24,6 +25,10 @@ class UserService(
 
     fun save(user: User): User {
         return usersRepository.save(user)
+    }
+
+    fun getUserFromDTO(userDTO: UserDTO): User {
+        return usersRepository.findByid(userDTO.id!!)!!
     }
 
     fun insertUsers(users: List<User>): Boolean {
