@@ -1,5 +1,6 @@
 package cmp2804.tse.server.controller
 
+import cmp2804.tse.server.service.AuthService
 import cmp2804.tse.server.service.NotificationService
 import cmp2804.tse.server.service.UserService
 import cmp2804.tse.server.storage.notifications.Notification
@@ -7,13 +8,14 @@ import cmp2804.tse.server.storage.users.User
 import cmp2804.tse.server.util.ResponseUtils
 import cmp2804.tse.server.util.resposne.UNAUTHORIZED_MESSAGE
 import org.springframework.http.ResponseEntity
+import org.springframework.messaging.handler.annotation.Header
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -22,8 +24,19 @@ import org.springframework.web.bind.annotation.RestController
 @Validated
 class UserController(
     private val userService: UserService,
-    private val notificationService: NotificationService
+    private val notificationService: NotificationService,
+    private val authService: AuthService
 ) {
+
+    @GetMapping("/")
+    fun getSelfUser(
+        @RequestHeader("Token")
+        token: String,
+    ): ResponseEntity<User> {
+
+        val user = authService.getUser(token) ?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(user)
+    }
 
     @GetMapping("/{id}")
     fun getUser(
