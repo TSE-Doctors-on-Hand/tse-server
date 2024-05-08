@@ -58,7 +58,7 @@ data class LatLong(
             val client = OkHttpClient()
             val request = Request.Builder()
                 .url(
-                    API_ADDRESS.format(API_ADDRESS, GOOGLE_MAPS_API_KEY)
+                    API_ADDRESS.format(postcode, GOOGLE_MAPS_API_KEY)
                 )
                 .build()
 
