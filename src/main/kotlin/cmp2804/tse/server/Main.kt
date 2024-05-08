@@ -15,13 +15,3 @@ class DoctorsOnHand
 fun main(args: Array<String>) {
 	runApplication<DoctorsOnHand>(*args)
 }
-
-@RestController
-class HelloController {
-
-	@GetMapping("/")
-	fun root(): String {
-		return "OK"
-	}
-
-}
