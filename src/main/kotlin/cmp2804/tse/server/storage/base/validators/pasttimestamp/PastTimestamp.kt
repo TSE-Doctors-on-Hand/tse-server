@@ -4,6 +4,13 @@ import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
 
+/**
+ * PastTimestamp annotation
+ *
+ * Add this to timestamps that need to be in the past
+ *
+ * @author Ben Soones
+ */
 @Target(AnnotationTarget.FIELD, AnnotationTarget.TYPE)
 @Retention(AnnotationRetention.RUNTIME)
 @Constraint(validatedBy = [PastTimestampValidator::class])
