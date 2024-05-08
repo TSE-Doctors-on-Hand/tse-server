@@ -1,9 +1,8 @@
 package cmp2804.tse.server.controller.base
 
 import cmp2804.tse.server.service.AuthService
-import cmp2804.tse.server.storage.users.User
-import cmp2804.tse.server.util.request.SignInRequest
-import cmp2804.tse.server.util.request.SignUpRequest
+import cmp2804.tse.server.dto.LoginDTO
+import cmp2804.tse.server.dto.RegisterDTO
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -15,12 +14,14 @@ import org.springframework.web.bind.annotation.RestController
 /**
  * Controller for all auth purposes
  *
- * This controller is responsible
+ * **This controller has the following endpoints:**
  *
- * ** This controller has the following endpoints:
+ *  - /register: This post request registers a user via a [RegisterDTO]. This also adds their token to their
+ *  session storage
  *
- *  - /insert: This get request inserts mock data into the database
- *  and must be run when the backend is started for the first time
+ *  - /login: This post request logs in a user via a [LoginDTO]. This also adds their token to their session storage
+ *
+ *  - /logout: This post request logs out a user by clearing their token from their session storage
  *
  * @property authService Auth service
  *
@@ -35,13 +36,13 @@ class AuthController(
 ) {
 
     @PostMapping("/register")
-    fun postSignUp(
+    fun postRegister(
         @RequestBody
-        signUpRequest: SignUpRequest,
+        registerDTO: RegisterDTO,
         response: HttpServletResponse
     ): ResponseEntity<String> {
         try {
-            return authService.signUp(signUpRequest, response)
+            return authService.register(registerDTO, response)
         } catch (throwable: Throwable) {
             throwable.printStackTrace()
         }
@@ -49,19 +50,19 @@ class AuthController(
     }
 
     @PostMapping("/login")
-    fun postSignIn(
+    fun postLogin(
         @RequestBody
-        signInRequest: SignInRequest,
+        loginDTO: LoginDTO,
         response: HttpServletResponse
     ): ResponseEntity<Any> {
-        return authService.signIn(signInRequest, response)
+        return authService.login(loginDTO, response)
     }
 
     @PostMapping("/logout")
-    fun postSignOut(
+    fun postLogout(
         response: HttpServletResponse
     ): ResponseEntity<Any> {
-        return authService.signOut(response)
+        return authService.logout(response)
     }
 
 }
