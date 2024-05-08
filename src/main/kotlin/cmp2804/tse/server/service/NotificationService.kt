@@ -8,11 +8,23 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 import org.springframework.stereotype.Service
 
+/**
+ * Notification service
+ *
+ * This service is responsible for all functions interacting with notifications
+ *
+ * @author Ben Soones
+ */
 @Service
 class NotificationService(
     private val notificationRepository: NotificationRepository,
 ): BaseService<Notification, Long> {
 
+    /**
+     * Retrieves all notifications of a user
+     *
+     * @return List of [Notification]
+     */
     fun getNotifications(user: User): List<Notification> {
         return notificationRepository.findByUser(user)
     }
