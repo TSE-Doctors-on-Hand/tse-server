@@ -12,6 +12,21 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * Controller for all auth purposes
+ *
+ * This controller is responsible
+ *
+ * ** This controller has the following endpoints:
+ *
+ *  - /insert: This get request inserts mock data into the database
+ *  and must be run when the backend is started for the first time
+ *
+ * @property authService Auth service
+ *
+ * @author Ben Soones
+ * @author Oliver Whitehead
+ */
 @RestController
 @RequestMapping("/api/auth")
 @Validated

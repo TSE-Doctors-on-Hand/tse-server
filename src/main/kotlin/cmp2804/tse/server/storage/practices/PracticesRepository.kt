@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository
  * @param [Long] ID type
  * @author Ben Soones
  */
-interface PracticesRepository : JpaRepository<Practice, Long> {}
+interface PracticesRepository : JpaRepository<Practice, Long> {
+    fun findByName(name: String): Practice?
+}

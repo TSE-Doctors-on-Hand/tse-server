@@ -29,7 +29,7 @@ val PRACTICE_CLIFF = Practice(
     setOf()
 )
 
-val PRACTICES = listOf(
+val MOCK_PRACTICES = listOf(
     PRACTICE_STUDENT,
     PRACTICE_NEWLAND,
     PRACTICE_CLIFF

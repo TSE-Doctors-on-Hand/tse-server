@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+
+
 @RestController
 @RequestMapping("/api/appointment")
 @Validated
@@ -126,7 +128,7 @@ class AppointmentController(
         user: User
     ): ResponseEntity<Appointment> {
         val savedAppointment = appointmentService.addAppointment(appointment)
-        return ResponseEntity.ok(savedAppointment) // TODO: Error handling
+        return ResponseEntity.ok(savedAppointment)
     }
 
 }
