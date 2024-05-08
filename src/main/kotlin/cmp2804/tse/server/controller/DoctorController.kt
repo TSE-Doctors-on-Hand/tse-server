@@ -26,7 +26,7 @@ class DoctorController(private val doctorService: DoctorService) {
         val location = if (doctorSearchDTO.postcode == null) {
             user.latLong()
         } else {
-            LatLong(0.0, 0.0) // TODO -> Add postcode to thingy
+            LatLong.fromPostcode(doctorSearchDTO.postcode)
         }
 
         val matchedDoctors = doctorService.getMatchingDoctors(
