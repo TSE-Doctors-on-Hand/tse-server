@@ -4,6 +4,13 @@ import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
 
+/**
+ * FutureTimestamp annotation
+ *
+ * Add this to timestamps that need to be in the future
+ *
+ * @author Ben Soones
+ */
 @Target(AnnotationTarget.FIELD, AnnotationTarget.TYPE)
 @Retention(AnnotationRetention.RUNTIME)
 @Constraint(validatedBy = [FutureTimestampValidator::class])
