@@ -3,22 +3,34 @@ package cmp2804.tse.server.util.date
 import java.sql.Date
 import java.text.SimpleDateFormat
 
+/**
+ * Date converter from string to Date
+ *
+ * @see [Date]
+ *
+ * @author Oliver Whitehead
+ */
 object DateUtil {
 
-    val DATE_FORMAT = SimpleDateFormat("dd/MM/yyyy")
+    private val DATE_FORMAT = SimpleDateFormat("dd/MM/yyyy")
 
+    /**
+     * Returns a date object from a string
+     */
     fun dateOrDefault(date: String, default: Date): Date {
         return parseDateString(date) ?: default
     }
 
-    // todo --> handling
-    fun parseDateString(date: String): Date? {
-        try {
+    /**
+     * Parses a string to date
+     */
+    private fun parseDateString(date: String): Date? {
+        return try {
             val javaDate = DATE_FORMAT.parse(date)
-            return Date(javaDate.time)
+            Date(javaDate.time)
         } catch (e: Throwable) {
             e.printStackTrace()
-            return null
+            null
         }
     }
 
