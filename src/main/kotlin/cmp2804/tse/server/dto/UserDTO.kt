@@ -6,6 +6,25 @@ import cmp2804.tse.server.storage.users.User
 import cmp2804.tse.server.util.LatLong
 import java.sql.Date
 
+/**
+ * Data Transfer Object to send login info
+ **
+ * @property id User ID
+ * @property username
+ * @property forename User's forename
+ * @property surname User's surname
+ * @property dateOfBirth User's date of birth as a [Date]
+ * @property sex [SexEnum] ordinal
+ * @property pronouns List of user's pronouns
+ * @property email User's email
+ * @property phone User's UK phone
+ * @property postcode User's home postcode
+ * @property nextOfKin Next of kin information for user
+ * @property roles User's roles
+ *
+ * @author Ben Soones
+ * @author Oliver Whitehead
+ */
 data class UserDTO(
     val id: Long?,
     val username: String,
@@ -22,6 +41,10 @@ data class UserDTO(
 ) {
 
     companion object {
+
+        /**
+         * Converts a [User] object to a [UserDTO]
+         */
         fun fromUser(user: User): UserDTO {
             val sexEnum = user.sex.ordinal
 
