@@ -35,19 +35,6 @@ data class Patient(
     @Valid
     val user: User,
 
-//    /**
-//     * Carer(s) information
-//     *
-//     * Some users using this service may be vulnerable and require care, such as
-//     * Children, SEN users, and the elderly
-//     *
-//     * A single patient may have multiple carers, such as care home staff or parents
-//     *
-//     * @see [User]
-//     */
-//    @OneToMany(mappedBy = "carer", cascade = [CascadeType.ALL])
-//    val carers: MutableSet<Patient>,
-
     ) {
     constructor() : this(
         null,
