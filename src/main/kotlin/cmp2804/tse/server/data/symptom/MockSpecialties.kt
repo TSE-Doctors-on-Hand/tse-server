@@ -1,4 +1,4 @@
-package mock.data.symptom
+package cmp2804.tse.server.data.symptom
 
 import cmp2804.tse.server.storage.specialties.Speciality
 
