@@ -22,6 +22,7 @@ class AuthenticationFilter(private val authService: AuthService) : Filter {
         response: ServletResponse,
         chain: FilterChain
     ) {
+
         if (request is HttpServletRequest) {
             val token = request.getHeader("Token")
             val user = authService.getUser(token)
