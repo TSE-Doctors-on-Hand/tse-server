@@ -1,11 +1,11 @@
 package cmp2804.tse.server.controller.base
 
 import cmp2804.tse.server.service.*
-import mock.data.MOCK_DOCTORS
-import mock.data.MOCK_PATIENTS
-import mock.data.MOCK_PRACTICES
-import mock.data.MOCK_USERS
-import mock.data.symptom.MockSpecialties
+import cmp2804.tse.server.data.MOCK_DOCTORS
+import cmp2804.tse.server.data.MOCK_PATIENTS
+import cmp2804.tse.server.data.MOCK_PRACTICES
+import cmp2804.tse.server.data.MOCK_USERS
+import cmp2804.tse.server.data.symptom.MockSpecialties
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping

@@ -1,7 +1,7 @@
-package mock.data
+package cmp2804.tse.server.data
 
 import cmp2804.tse.server.storage.doctors.Doctor
-import mock.data.symptom.MockSpecialties
+import cmp2804.tse.server.data.symptom.MockSpecialties
 
 
 val DOCTOR_CHARLIE = Doctor(

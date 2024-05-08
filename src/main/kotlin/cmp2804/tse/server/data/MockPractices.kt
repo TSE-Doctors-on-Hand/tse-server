@@ -1,4 +1,4 @@
-package mock.data
+package cmp2804.tse.server.data
 
 import cmp2804.tse.server.storage.practices.Practice
 
