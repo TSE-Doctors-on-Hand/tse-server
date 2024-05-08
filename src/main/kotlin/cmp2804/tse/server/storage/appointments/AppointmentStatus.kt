@@ -60,6 +60,13 @@ enum class AppointmentStatus(val index: Int) {
      */
     COMPLETE(6);
 
+    /**
+     * Retrieves an appointment by its index
+     *
+     * @param index Status index
+     *
+     * @return [AppointmentStatus]
+     */
     fun getByIndex(index: Int): AppointmentStatus? {
         return values().getOrNull(index)
     }
