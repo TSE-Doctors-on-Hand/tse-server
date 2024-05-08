@@ -2,6 +2,7 @@ package cmp2804.tse.server.storage.practices
 
 import cmp2804.tse.server.storage.doctors.Doctor
 import cmp2804.tse.server.util.LatLong
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 import jakarta.validation.Valid
 import jakarta.validation.constraints.DecimalMax
@@ -60,9 +61,9 @@ data class Practice(
     @NotNull(message = "Address cannot be null")
     val address: String,
 
-    @ManyToMany
-    @JoinColumn(name = "doctor_id")
+    @ManyToMany(mappedBy = "practices")
     @NotNull(message = "Doctors cannot be null")
+    @JsonBackReference
     var doctors: Set<@Valid Doctor>,
 
 ) {
@@ -76,4 +77,13 @@ data class Practice(
     )
 
     fun latLong(): LatLong = LatLong(locationLat, locationLong)
+
+    override fun hashCode(): Int {
+        return id?.toInt()!!
+    }
+
+    override fun toString(): String {
+        return ""
+    }
+
 }

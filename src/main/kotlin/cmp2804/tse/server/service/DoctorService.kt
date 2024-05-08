@@ -10,6 +10,7 @@ import cmp2804.tse.server.util.LatLong
 import cmp2804.tse.server.util.error.errors.EntityNotFoundException
 import cmp2804.tse.server.util.matcher.MatchedDoctor
 import cmp2804.tse.server.util.matcher.SymptomMatcher
+import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -27,13 +28,27 @@ class DoctorService(
     }
 
     fun getDoctorsInRange(center: LatLong, rangeKm: Double): List<Doctor> {
-        val doctors = doctorsRepository.findAll().filter { doctor ->
-            doctor.practices.any { practice ->
-                practice.latLong().isWithinRange(center, rangeKm)
+        try {
+            val drs = mutableListOf<Doctor>()
+
+            doctorsRepository.findAll().forEach { doctor ->
+
+
+                doctor.practices.forEach { dr ->
+                    if (dr.latLong().isWithinRange(center, rangeKm)) {
+                        drs.add(doctor)
+                    }
+                }
+
             }
+
+
+            return drs
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
         }
 
-        return doctors
+        return listOf()
     }
 
     fun getMatchingDoctors(

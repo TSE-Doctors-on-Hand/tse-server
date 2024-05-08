@@ -31,15 +31,18 @@ object SymptomMatcher {
             val similarity: Double = if (union.isEmpty()) {
                 100.00
             } else {
-                (intersection.size.toDouble() / union.size.toDouble()) * 100
+                (intersection.size.toDouble() / doctorSymptoms.size.toDouble())
             }
 
-            val distance = doctor.practices.map {
+            val closestPractice = doctor.practices.minByOrNull {
                 location.haversineDistance(it.latLong())
-            }.minOf { it }
+            }!!
 
-            MatchedDoctor(
+            val distance = location.haversineDistance(closestPractice.latLong())
+
+            MatchedDoctor.fromDoctor(
                 doctor,
+                closestPractice,
                 similarity,
                 distance
             )

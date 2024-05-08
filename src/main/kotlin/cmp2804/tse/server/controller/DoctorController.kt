@@ -8,6 +8,7 @@ import cmp2804.tse.server.storage.users.User
 import cmp2804.tse.server.util.ResponseUtils
 import cmp2804.tse.server.util.LatLong
 import cmp2804.tse.server.util.matcher.MatchedDoctor
+import jakarta.transaction.Transactional
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.*
 @Validated
 class DoctorController(private val doctorService: DoctorService) {
 
-    @GetMapping("/match")
+    @PostMapping("/match")
+    @Transactional
     fun matchDoctors(
         @RequestBody
         doctorSearchDTO: DoctorSearchDTO,

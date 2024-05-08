@@ -8,7 +8,7 @@ import okhttp3.Request
 import java.lang.NullPointerException
 import kotlin.math.*
 
-private val API_ADDRESS = "https://maps.googleapis.com/maps/api/geocode/json?address=%p&key=%a"
+private val API_ADDRESS = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s"
 private const val GOOGLE_MAPS_API_KEY = "AIzaSyAy_xu3NevkXxJVqgKztP5u1B3qmctYaHY"
 
 // https://imagine.gsfc.nasa.gov/features/cosmic/earth_info.html#:~:text=Note%3A%20The%20Earth%20is%20almost,the%20polar%20and%20equatorial%20values.

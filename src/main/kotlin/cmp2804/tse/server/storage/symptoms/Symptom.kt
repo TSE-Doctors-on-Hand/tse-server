@@ -1,6 +1,7 @@
 package cmp2804.tse.server.storage.symptoms
 
 import cmp2804.tse.server.storage.specialties.Speciality
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
@@ -31,6 +32,7 @@ data class Symptom(
     val name: String,
 
     @ManyToMany(mappedBy = "symptoms")
+    @JsonBackReference
     var specialties: Set<@Valid Speciality>
 ) {
 

@@ -3,6 +3,7 @@ package cmp2804.tse.server.storage.doctors
 import cmp2804.tse.server.storage.practices.Practice
 import cmp2804.tse.server.storage.specialties.Speciality
 import cmp2804.tse.server.storage.users.User
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotEmpty
@@ -39,6 +40,7 @@ data class Doctor(
     @ManyToMany
     @NotNull(message = "Speciality cannot be null")
     @NotEmpty(message = "A doctor must have at least one speciality!")
+    @JsonManagedReference
     val specialties: MutableSet<@Valid Speciality>,
 
     /**
@@ -68,9 +70,15 @@ data class Doctor(
      * are supported
      * @see [Practice]
      */
-    @ManyToMany(mappedBy = "doctors", cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "doctors_practices",
+        joinColumns = [ JoinColumn(name = "doctor_id") ],
+        inverseJoinColumns = [ JoinColumn(name = "practice_id") ]
+    )
     @NotNull(message = "Practice cannot be null")
     @NotEmpty(message = "Practice cannot be empty")
+    @JsonManagedReference
     val practices: MutableSet<@Valid Practice>,
 ) {
     constructor() : this(

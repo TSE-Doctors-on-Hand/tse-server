@@ -3,6 +3,8 @@ package cmp2804.tse.server.storage.specialties
 import cmp2804.tse.server.storage.doctors.Doctor
 import cmp2804.tse.server.storage.symptoms.Symptom
 import cmp2804.tse.server.storage.users.User
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotEmpty
@@ -52,10 +54,12 @@ data class Speciality(
     @ManyToMany
     @NotNull(message = "Symptoms cannot be null")
     @NotEmpty(message = "Symptoms cannot be empty")
+    @JsonManagedReference
     val symptoms: MutableSet<@Valid Symptom>,
 
     @ManyToMany(mappedBy = "specialties", cascade = [CascadeType.ALL])
     @NotNull(message = "Doctors cannot be null")
+    @JsonBackReference
     val doctors: MutableSet<@Valid Doctor>,
 
 ) {
@@ -65,4 +69,13 @@ data class Speciality(
         mutableSetOf(),
         mutableSetOf()
     )
+
+    override fun hashCode(): Int {
+        return this.id?.toInt()!!
+    }
+
+    override fun toString(): String {
+        return ""
+    }
+
 }
