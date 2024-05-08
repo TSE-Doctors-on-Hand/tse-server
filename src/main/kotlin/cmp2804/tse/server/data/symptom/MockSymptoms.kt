@@ -2,6 +2,16 @@ package cmp2804.tse.server.data.symptom
 
 import cmp2804.tse.server.storage.symptoms.Symptom
 
+/**
+ * Example data for Symptoms
+ *
+ * This data is used for testing and examination purposes.
+ *
+ * In a live example, this data would not be included
+ *
+ * @author Ben Soones
+ * @author Oliver Whitehead
+ */
 object MockSymptoms {
 
     val ABDOMINAL_BLOATING = Symptom(1, "Abdominal bloating", mutableSetOf())

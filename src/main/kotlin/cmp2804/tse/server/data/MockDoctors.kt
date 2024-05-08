@@ -3,6 +3,16 @@ package cmp2804.tse.server.data
 import cmp2804.tse.server.storage.doctors.Doctor
 import cmp2804.tse.server.data.symptom.MockSpecialties
 
+/**
+ * Example data for Doctors
+ *
+ * This data is used for testing and examination purposes.
+ *
+ * In a live example, this data would not be included
+ *
+ * @author Ben Soones
+ * @author Oliver Whitehead
+ */
 
 val DOCTOR_CHARLIE = Doctor(
     null,

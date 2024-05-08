@@ -12,6 +12,18 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
+/**
+ * **CORS (Cross-Origin Resource Sharing) config**
+ *
+ * This filter is responsible for request authorisation configuration
+ *
+ * @see [UserArgumentResolver]
+ * @see [cmp2804.tse.server.util.auth.AuthenticationFilter]
+ *
+ * @author Oliver Whitehead
+ * @author Ben Soones
+ *
+ */
 @Configuration
 @EnableWebMvc
 class WebConfig(
@@ -21,7 +33,6 @@ class WebConfig(
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**").allowedOrigins("http://localhost:3000").allowedMethods("*")
     }
-
 
     override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
         resolvers.add(userArgumentResolver)

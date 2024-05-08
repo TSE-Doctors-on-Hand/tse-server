@@ -7,6 +7,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.web.SecurityFilterChain
 
+/**
+ * An extra filter chain to prevent preflight request from being filtered by
+ * the CORS mapping
+ *
+ * @see [cmp2804.tse.server.util.auth.AuthenticationFilter]
+ *
+ * @author Oliver Whitehead
+ */
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig {

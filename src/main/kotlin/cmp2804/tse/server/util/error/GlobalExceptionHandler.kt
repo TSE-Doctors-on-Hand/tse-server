@@ -45,6 +45,11 @@ class GlobalExceptionHandler {
             )
     }
 
+    /**
+     * Exception handler for unauthorised requests
+     *
+     * @see UnauthorisedException
+     */
     @ExceptionHandler(UnauthorisedException::class)
     fun handleUnauthorisedException(e: UnauthorisedException): ResponseEntity<String> {
         return ResponseEntity
@@ -54,14 +59,17 @@ class GlobalExceptionHandler {
             )
     }
 
-
-
+    /**
+     * Umbrella handler for all other errors
+     *
+     * @see Exception
+     */
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ResponseEntity<String> {
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
             .body(
-                e.message ?: "Resource not found"
+                e.message ?: "Unexpected error"
             )
     }
 

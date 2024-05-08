@@ -31,6 +31,9 @@ data class Symptom(
     @NotNull(message = "Symptom cannot be null")
     val name: String,
 
+    /**
+     * Set of specialties this symptom is in
+     */
     @ManyToMany(mappedBy = "symptoms")
     @JsonBackReference
     var specialties: Set<@Valid Speciality>

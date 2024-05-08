@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Length
 const val SPECIALTIES_TABLE_NAME = "specialties"
 
 /**
- * **specialties table**
+ * **Specialties table**
  *
  * Stores all information about a doctor.
  *
@@ -57,6 +57,11 @@ data class Speciality(
     @JsonManagedReference
     val symptoms: MutableSet<@Valid Symptom>,
 
+    /**
+     * Specialty doctors
+     *
+     * A set of all doctors that have this specialty
+     */
     @ManyToMany(mappedBy = "specialties", cascade = [CascadeType.ALL])
     @NotNull(message = "Doctors cannot be null")
     @JsonBackReference
@@ -70,6 +75,7 @@ data class Speciality(
         mutableSetOf()
     )
 
+    // Override funcs to prevent stack overflow
     override fun hashCode(): Int {
         return this.id?.toInt()!!
     }

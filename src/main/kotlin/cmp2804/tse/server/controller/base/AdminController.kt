@@ -63,12 +63,10 @@ class AdminController(
         }
         if (!practiceService.insertPractices(MOCK_PRACTICES)) {
             errors.add("Failed to insert practices")
-
         }
         if (!doctorService.insertDoctors(MOCK_DOCTORS)) {
             errors.add("Failed to insert doctors")
         }
-
 
         val response = if (errors.isEmpty()) "Success" else errors.joinToString(", ")
 

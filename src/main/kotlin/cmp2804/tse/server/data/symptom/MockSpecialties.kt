@@ -2,7 +2,16 @@ package cmp2804.tse.server.data.symptom
 
 import cmp2804.tse.server.storage.specialties.Speciality
 
-
+/**
+ * Example data for Specialties
+ *
+ * This data is used for testing and examination purposes.
+ *
+ * In a live example, this data would not be included
+ *
+ * @author Ben Soones
+ * @author Oliver Whitehead
+ */
 object MockSpecialties {
 
     val CARDIOLOGY = Speciality(

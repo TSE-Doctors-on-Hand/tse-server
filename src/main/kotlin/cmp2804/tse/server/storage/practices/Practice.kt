@@ -40,8 +40,8 @@ data class Practice(
     /**
      * Practice Location
      *
-     * A Latitude and Longitude pair showing the GPS co-ordinates of the practice
-     * This can be used with a maps API to get the location
+     * Latitude and Longitude showing the GPS co-ordinates of the practice
+     * This is created from a user's Postcode
      */
     @DecimalMin("-90.00", message = "Location must be valid")
     @DecimalMax("90.00", message = "Location must be valid")
@@ -61,6 +61,11 @@ data class Practice(
     @NotNull(message = "Address cannot be null")
     val address: String,
 
+    /**
+     * Practice doctors
+     *
+     * A set of all doctors that practice at this practice
+     */
     @ManyToMany(mappedBy = "practices")
     @NotNull(message = "Doctors cannot be null")
     @JsonBackReference
@@ -78,6 +83,7 @@ data class Practice(
 
     fun latLong(): LatLong = LatLong(locationLat, locationLong)
 
+    // Override funcs to prevent stack overflow error
     override fun hashCode(): Int {
         return id?.toInt()!!
     }

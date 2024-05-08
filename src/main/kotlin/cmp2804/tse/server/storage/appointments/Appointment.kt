@@ -155,21 +155,42 @@ data class Appointment(
         0
     )
 
+    /**
+     * Check if user has permission to view this appointment
+     *
+     * @return [Boolean]
+     */
     fun hasViewPermission(user: User): Boolean {
         return hasPatientPermission(user) || hasDoctorPermission(user)
     }
 
+    /**
+     * Check if user is the appointment's patient
+     *
+     * @return [Boolean]
+     */
     fun hasPatientPermission(user: User): Boolean {
         if (hasAdminPermission(user)) return true
         return (this.patient.user.id == user.id)
 
     }
 
+    /**
+     * Check if user is the appointment's doctor
+     *
+     * @return [Boolean]
+     */
     fun hasDoctorPermission(user: User): Boolean {
         if (hasAdminPermission(user)) return true
         return (this.doctor.user.id == user.id)
     }
 
+    /**
+     * Check if the user is an administrator, and therefore has full
+     * permission for the entire appointment
+     *
+     * @return [Boolean]
+     */
     fun hasAdminPermission(user: User): Boolean {
         return user.getHighestRole() == RolesEnum.ADMIN
     }

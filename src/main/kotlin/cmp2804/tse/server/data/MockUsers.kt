@@ -1,9 +1,22 @@
+@file:Suppress("DEPRECATION")
 package cmp2804.tse.server.data
 
 import cmp2804.tse.server.storage.roles.RolesEnum
 import cmp2804.tse.server.storage.users.SexEnum
 import cmp2804.tse.server.storage.users.User
 import java.sql.Date
+
+
+/**
+ * Example data for Users
+ *
+ * This data is used for testing and examination purposes.
+ *
+ * In a live example, this data would not be included
+ *
+ * @author Ben Soones
+ * @author Oliver Whitehead
+ */
 
 val USER_BARRY = User(
     null,
