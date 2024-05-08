@@ -2,6 +2,16 @@ package cmp2804.tse.server.data
 
 import cmp2804.tse.server.storage.practices.Practice
 
+/**
+ * Example data for Practices
+ *
+ * This data is used for testing and examination purposes.
+ *
+ * In a live example, this data would not be included
+ *
+ * @author Ben Soones
+ * @author Oliver Whitehead
+ */
 
 val PRACTICE_STUDENT = Practice(
     null,
