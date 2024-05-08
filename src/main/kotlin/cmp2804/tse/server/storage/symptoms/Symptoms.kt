@@ -1,5 +1,14 @@
 package cmp2804.tse.server.storage.symptoms
 
+/**
+ * This is a list of all supported symptoms
+ *
+ * @see <a href="https://www.nhsinform.scot/symptoms-and-self-help/a-to-z/">Source 1</a>
+ * @see <a href="https://www.nhs.uk/conditions/">Source 1</a>
+ *
+ * @author Ben Soones
+ * @author Harry Collins
+ */
 val SYMPTOMS = listOf(
     "Abnormal bleeding",
     "Abdominal bloating",
