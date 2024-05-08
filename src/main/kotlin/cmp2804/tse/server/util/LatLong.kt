@@ -81,7 +81,7 @@ data class LatLong(
 
                     return LatLong(
                         location["lat"]?.asDouble ?: 0.0,
-                        location["lat"]?.asDouble ?: 0.0,
+                        location["lng"]?.asDouble ?: 0.0,
                     )
                 } catch (e: NullPointerException) {
                     // TODO -> Logging
