@@ -116,11 +116,22 @@ data class User(
     @NotNull(message = "Location cannot be null")
     var homeLocationLong: Double,
 
+    /**
+     * A user's postcode
+     */
     var postcode: String?,
 
+    /**
+     * A user's next of kin information
+     */
     var nextOfKin: String,
 
 
+    /**
+     * A user's roles
+     *
+     * @see [RolesEnum]
+     */
     @ElementCollection
     @NotNull(message = "Roles cannot be null")
     var roles: MutableSet<RolesEnum>
@@ -144,22 +155,37 @@ data class User(
         mutableSetOf(),
     )
 
+    /**
+     * Compares a non-hashed and non-salted password to the user's hashed and salted password
+     */
     fun comparePassword(password: String): Boolean {
         return BCryptPasswordEncoder().matches(password, this.password)
     }
 
+    /**
+     * Retrieves the highest role a user has, ensuring their authorisation is accurate
+     */
     fun getHighestRole(): RolesEnum? {
         return this.roles.maxByOrNull { it.ordinal }
     }
 
+    /**
+     * Checks if a user is a Doctor
+     */
     fun isDoctor(): Boolean {
         return this.roles.contains(RolesEnum.DOCTOR)
     }
 
+    /**
+     * Checks if a user is a Patient
+     */
     fun isPatient(): Boolean {
         return this.roles.contains(RolesEnum.PATIENT)
     }
 
+    /**
+     * Calculates the [LatLong] of a user's home location
+     */
     fun latLong(): LatLong = LatLong(this.homeLocationLat, this.homeLocationLong)
 
 }
