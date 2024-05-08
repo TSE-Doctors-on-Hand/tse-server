@@ -16,7 +16,32 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 
-
+/**
+ * Appointment controller
+ *
+ * **This controller has the following endpoints:**
+ *
+ *  - /: This put request adds an appointment to the database. Error checking is handled by the [AppointmentService]
+ *
+ *  - /all: This get request retrieves all appointments. Role checking is built in via the [AppointmentService].
+ *
+ *  - /{id}: This get request retrieves an appointment by its ID.
+ *
+ *  - /{id}/status: This get request retrieves the status of an appointment.
+ *
+ *  - /{id}/status: This put request edits the status of an appointment. Role checking is build in via the [AppointmentService].
+ *
+ *  - /{id}/date/suggest: This post request suggests a date (by a doctor) for an appointment. The status is edited accordingly.
+ *
+ *  - /{id}/date/approve: This post request approves a date (by a patient) for an appointment. The status is edited accordingly.
+ *
+ *  - /{id}/date/reject: This post request rejects a date (by a patient OR doctor) for an appointment. The status goes back accordingly.
+ *
+ * @property appointmentService Appointment service
+ *
+ * @author Ben Soones
+ * @author Oliver Whitehead
+ */
 @RestController
 @RequestMapping("/api/appointment")
 @Validated
