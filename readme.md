@@ -3,7 +3,7 @@
 Run TSE server via the following console commands:
 
 ```bash
-gradlew /build .
+./gradlew build
 ./scripts/rebuild.sh
 ```
 
