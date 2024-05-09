@@ -1,11 +1,6 @@
 # TSE - Server
 
-Run TSE server via the following console commands:
-
-```bash
-./gradlew build
-./scripts/rebuild.sh
-```
+Refer to the setup tutorial on the [main README](https://github.com/tSE-Doctors-on-Hand/)
 
 ### Admin Endpoints
 
