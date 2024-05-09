@@ -1,6 +1,6 @@
 # TSE - Server
 
-Refer to the setup tutorial on the [main README](https://github.com/tSE-Doctors-on-Hand/)
+Refer to the setup tutorial on the [main README](https://github.com/tSE-Doctors-on-Hand/#setup-backend)
 
 ### Admin Endpoints
 
